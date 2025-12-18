@@ -1,0 +1,410 @@
+Agents:
+  Blue:
+    AllowedSubnets:
+      - Aluno
+      - Enterprise
+      - Operational
+    INT:
+      Hosts:
+        Defender:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Server0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno3:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno4:
+          Interfaces: All
+          System info: All
+          User info: All
+    adversary: Red
+    actions:
+      - Sleep
+      - Monitor
+      - Analyse
+      - Remove
+      - Misinform
+      - Restore
+    agent_type: SleepAgent
+    reward_calculator_type: HybridAvailabilityConfidentiality
+    starting_sessions:
+      - hostname: Aluno0
+        name: VeloAluno0
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Aluno1
+        name: VeloAluno1
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Aluno2
+        name: VeloAluno2
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Aluno3
+        name: VeloAluno3
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Aluno4
+        name: VeloAluno4
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Enterprise0
+        name: VeloEnterprise0
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Enterprise1
+        name: VeloEnterprise1
+        parent: VeloServer
+        type: VelociraptorClient
+        username: SYSTEM
+      - hostname: Enterprise2
+        name: VeloEnterprise2
+        parent: VeloServer
+        type: VelociraptorClient
+        username: SYSTEM
+      - hostname: Defender
+        name: VeloDefender
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Op_Server0
+        name: VeloOp_Server0
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Op_Host0
+        name: VeloOp_Host0
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Op_Host1
+        name: VeloOp_Host1
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - hostname: Op_Host2
+        name: VeloOp_Host2
+        parent: VeloServer
+        type: VelociraptorClient
+        username: ubuntu
+      - artifacts:
+          - NetworkConnections
+          - ProcessCreation
+        hostname: Defender
+        name: VeloServer
+        num_children_sessions: 13
+        type: VelociraptorServer
+        username: ubuntu
+    wrappers: [ ]
+  Green:
+    AllowedSubnets:
+      - Aluno
+      - Enterprise
+      - Operational
+    INT:
+      Hosts:
+        Defender:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Enterprise2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Host2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Op_Server0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno0:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno1:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno2:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno3:
+          Interfaces: All
+          System info: All
+          User info: All
+        Aluno4:
+          Interfaces: All
+          System info: All
+          User info: All
+    actions:
+    - Sleep
+    - GreenPingSweep
+    - GreenPortScan
+    - GreenConnection
+    agent_type: SleepAgent
+    reward_calculator_type: None
+    starting_sessions:
+    - hostname: Aluno0
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Aluno1
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Aluno2
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Aluno3
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Aluno4
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Op_Host0
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Op_Host1
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    - hostname: Op_Host2
+      name: GreenSession
+      type: green_session
+      username: GreenAgent
+    wrappers: []
+  Red:
+    AllowedSubnets:
+      - Aluno
+      - Enterprise
+      - Operational
+    INT:
+      Hosts:
+        Aluno0:
+          Interfaces: All
+          System info: All
+    actions:
+    - Sleep
+    - DiscoverRemoteSystems
+    - DiscoverNetworkServices
+    - ExploitRemoteService
+    - PrivilegeEscalate
+    - Impact
+    agent_type: SleepAgent
+    reward_calculator_type: HybridImpactPwn
+    starting_sessions:
+    - hostname: Aluno0
+      name: RedPhish
+      type: RedAbstractSession
+      username: SYSTEM
+    wrappers: []
+Hosts:
+  Defender:
+    AWS_Info: []
+    image: Velociraptor_Server
+  Enterprise0:
+    AWS_Info: []
+    image: Gateway
+    info:
+      Enterprise0:
+        Interfaces: All
+    ConfidentialityValue: Medium
+    AvailabilityValue: Medium
+  Enterprise1:
+    AWS_Info: []
+    image: Internal
+    info:
+      Enterprise1:
+        Interfaces: All
+    ConfidentialityValue: Medium
+    AvailabilityValue: Medium
+  Enterprise2:
+    AWS_Info: []
+    image: Internal
+    info:
+      Enterprise2:
+        Interfaces: All
+      Op_Server0:
+        Interfaces: IP Address
+    ConfidentialityValue: Medium
+    AvailabilityValue: Medium
+  Op_Host0:
+    AWS_Info: []
+    image: Gateway
+    info:
+      Op_Host0:
+        Interfaces: All
+  Op_Host1:
+    AWS_Info: []
+    image: Gateway
+    info:
+      Op_Host1:
+        Interfaces: All
+  Op_Host2:
+    AWS_Info: []
+    image: Gateway
+    info:
+      Op_Host2:
+        Interfaces: All
+  Op_Server0:
+    AWS_Info: []
+    image: OP_Server
+    info:
+      Op_Server0:
+        Interfaces: All
+        Services:
+        - OTService
+    ConfidentialityValue: Medium
+    AvailabilityValue: High
+  Aluno0:
+    AWS_Info: []
+    image: windows_user_host1
+    info:
+      Aluno0:
+        Interfaces: All
+    /rConfidentialityValue: None
+    AvailabilityValue: None
+  Aluno1:
+    AWS_Info: []
+    image: windows_user_host1
+    info:
+      Enterprise1:
+        Interfaces: IP Address
+      Aluno1:
+        Interfaces: All
+    AvailabilityValue: None
+  Aluno2:
+    AWS_Info: []
+    image: windows_user_host2
+    info:
+      Enterprise1:
+        Interfaces: IP Address
+      Aluno2:
+        Interfaces: All
+    AvailabilityValue: None
+  Aluno3:
+    AWS_Info: []
+    image: linux_user_host1
+    info:
+      Enterprise0:
+        Interfaces: IP Address
+      Aluno3:
+        Interfaces: All
+    AvailabilityValue: None
+  Aluno4:
+    AWS_Info: []
+    image: linux_user_host2
+    info:
+      Enterprise0:
+        Interfaces: IP Address
+      Aluno4:
+        Interfaces: All
+    AvailabilityValue: None
+Subnets:
+  Enterprise:
+    Hosts:
+    - Enterprise0
+    - Enterprise1
+    - Enterprise2
+    - Defender
+    NACLs:
+      all:
+        in: all
+        out: all
+    Size: 3
+  Operational:
+    Hosts:
+    - Op_Server0
+    - Op_Host0
+    - Op_Host1
+    - Op_Host2
+    NACLs:
+      Aluno:
+        in: None
+        out: all
+      all:
+        in: all
+        out: all
+    Size: 4
+  Aluno:
+    Hosts:
+    - Aluno0
+    - Aluno1
+    - Aluno2
+    - Aluno3
+    - Aluno4
+    NACLs:
+      all:
+        in: all
+        out: all
+    Size: 5

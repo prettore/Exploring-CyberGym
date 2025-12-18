@@ -1,0 +1,194 @@
+Agents:
+  Blue:
+    AllowedSubnets:
+    - Gateway_A
+    - Gateway_B
+    - Wifi
+    INT:
+      Hosts:
+        Device1:
+          Interfaces:
+          - Device
+          System info: All
+    actions:
+    - Sleep
+    - Monitor
+    - Analyse
+    - Block
+    - Unblock
+    - Restore
+    - Deceive
+    agent_type: SleepAgent
+    reward_calculator_type: SimpleAvailability
+    starting_sessions:
+    - artifacts:
+      - Generic.Client.Stats
+      - Linux.Events.SSHLogin
+      - Windows.Events.ProcessCreation
+    - hostname: Computer1
+      name: VeloServer
+      num_children_sessions: 2
+      type: VelociraptorServer
+      username: ubuntu
+    - hostname: Internal
+      name: VeloInternal
+      parent: VeloServer
+      type: VelociraptorClient
+      username: SYSTEM
+    - hostname: Gateway
+      name: VeloGateway
+      parent: VeloServer
+      type: VelociraptorClient
+      username: ubuntu
+    wrappers: []
+  Green:
+    AllowedSubnets:
+    - Gateway_A
+    - Gateway_B
+    - Wifi
+    INT: []
+    actions:
+    - Sleep
+    - AddFile
+    - ModifyFile
+    - DeleteFile
+    - DownloadFile
+    - MoveFile
+    - CreateProcess
+    - RemoveProcess
+    - GreenPortScan
+    - GreenPingSweep
+    - GreenSSHConnection
+    - MagicOTConnection
+    agent_type: SleepAgent
+    reward_calculator_type: []
+    starting_sessions:
+    - hostname: Sensor0
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Sensor1
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Sensor2
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Device0
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Device1
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Device2
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Computer0
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Computer1
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    - hostname: Computer2
+      name: GreenSession
+      type: Session
+      username: GreenAgent
+    wrappers: []
+  Red:
+    AllowedSubnets:
+    - Gateway_A
+    INT:
+    actions:
+    - Sleep
+    - DiscoverRemoteSystem
+    - DiscoverNetworkService
+    - Exploit
+    - Escalate
+    - Impact
+    agent_type: SleepAgent
+    reward_calculator_type: Pwn
+    starting_sessions:
+    - hostname: Device0
+      name: MSFServer
+      type: MetasploitServer
+      username: SYSTEM
+    wrappers: []
+Hosts:
+  Computer0:
+    AWS_Info: []
+    image: Gateway
+    ConfidentialityValue: Medium
+    AvailabilityValue: Medium
+  Computer1:
+    AWS_Info: []
+    image: Gateway
+    ConfidentialityValue: Medium
+    AvailabilityValue: Medium
+  Computer2:
+    AWS_Info: []
+    image: Gateway
+    ConfidentialityValue: Medium
+    AvailabilityValue: High
+  Device0:
+    AWS_Info: []
+    image: Internal
+  Device1:
+    AWS_Info: []
+    image: Internal
+  Device2:
+    AWS_Info: []
+    image: Internal
+    info:
+      Computer2:
+        Interfaces: IP Address
+  Sensor0:
+    AWS_Info: []
+    image: Internal
+  Sensor1:
+    AWS_Info: []
+    image: Internal
+    info:
+      Device1:
+        Interfaces: IP Address
+  Sensor2:
+    AWS_Info: []
+    image: Internal
+Subnets:
+  Gateway_A:
+    Hosts:
+    - Sensor0
+    - Sensor1
+    - Sensor2
+    NACLs:
+      all:
+        in: all
+        out: all
+    Size: 3
+  Gateway_B:
+    Hosts:
+    - Device0
+    - Device1
+    - Device2
+    NACLs:
+      all:
+        in: all
+        out: all
+    Size: 3
+  Wifi:
+    Hosts:
+    - Computer0
+    - Computer1
+    - Computer2
+    NACLs:
+      all:
+        in: all
+        out: all
+    Size: 3
+
+
