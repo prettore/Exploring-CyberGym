@@ -1,10 +1,15 @@
+'''
+
+yaml file parser for network visualization.
+obs: written as 'router' read as 'switch'
+
+'''
 import yaml
 import random
 from pprint import pprint
 import matplotlib.pyplot as plt
 import networkx as nx
 
-#verificando se  o arquivo existe
 import os
 
 G = nx.Graph()
@@ -14,19 +19,22 @@ def add_router(Graph, Router):
 
 data = {}
 
-path = '../Scenarios'
+cwd = os.getcwd()
 file = input("Insert .yaml scenario file: ")
+path = cwd + "/../../Scenarios/" + file
 
-while not (os.path.exists(path + file)):
-    file = input("erro. insira o arquivo: ")
+while not (os.path.exists(path)):
+    print(path)
+    file = input("Error. Try again: ")
+    path = cwd + "/../Scenarios/" + file
 
-with open(path + file, "r") as file:
+with open(path, "r") as file:
     data = yaml.safe_load(file)
 
 subnets = data['Subnets'] #dict
 hosts = data['Hosts'] #dict
 
-#descobre os hosts da subnet
+#Look for hosts on the subnet
 for subnet, value in subnets.items():
 
     s_hosts = value['Hosts'] #lista
