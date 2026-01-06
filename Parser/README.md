@@ -3,4 +3,5 @@ SETUP
 ```
 pip install -e .
 python parser.py
+cd Parser
 ```
