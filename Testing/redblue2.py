@@ -1,3 +1,8 @@
+'''
+
+Same test as redblue.py, but next iteration pops on ENTER press
+
+'''
 import sys
 sys.path.append("../CybORG/")
 from pprint import pprint
@@ -44,4 +49,4 @@ for i in range(30):
     pprint("Sucesso da ação: {}".format(blue_obs.get('success')))
 
     a = input("")
-    print("\n\n")    
+    print("\n")    
