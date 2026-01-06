@@ -3,37 +3,39 @@ sys.path.append("../CybORG/")
 from pprint import pprint
 
 from CybORG import CybORG
-from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator
-from CybORG.Agents import B_lineAgent
-from CybORG.Agents import BlueReactRemoveAgent
-from CybORG.Agents import BlueReactRestoreAgent
-from CybORG.Agents.Wrappers import RedTableWrapper
-from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
+from CybORG.Agents.SimpleAgents.B_line import B_lineAgent
+from CybORG.Agents.SimpleAgents.BlueReactAgent import BlueReactRemoveAgent
+from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator as fr
 
-path = "../CybORG/CybORG/Simulator/Scenarios/scenario_files/Scenario1b.yaml"
-sg = FileReaderScenarioGenerator(path)
+path = "../Scenarios/Scenario1b.yaml"
+scenario_gen = fr(path)
 
-blue_agent = BlueReactRemoveAgent()
-red_agent = B_lineAgent()
-
-env = CybORG(scenario_generator=sg, agents={'Blue':blue_agent, 'Red':red_agent})
+env = CybORG(scenario_gen, 'sim')
 
 results = env.reset(agent='Red')
-print(env.get_ip_map())
+
+action_space = results.action_space
+blue_action_space = env.get_action_space('Blue')
+
+blue_agent = BlueReactRemoveAgent()
+agent = B_lineAgent()
+#agent = RedMeanderAgent()
+
+red_obs = results.observation
 
 for i in range(30):
-    
-    red_obs = env.get_observation('Red')
-    red_action = red_agent.get_action(observation=red_obs, action_space=env.get_action_space('Red'))
+   
+    red_action = agent.get_action(red_obs, action_space)
     results = env.step(action=red_action, agent='Red')
-    red_obs = env.get_observation('Red')
+    red_obs = results.observation
 
     print("--- RED ---")
     print(red_action)
     pprint("Sucesso da ação: {}".format(red_obs.get('success')))
 
+
     blue_obs = env.get_observation('Blue')
-    blue_action = blue_agent.get_action(blue_obs, env.get_action_space('Blue'))
+    blue_action = blue_agent.get_action(blue_obs, blue_action_space) 
     results = env.step(action=blue_action, agent='Blue')
     blue_obs = env.get_observation('Blue')
     

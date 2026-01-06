@@ -1,3 +1,8 @@
+'''
+
+This test is based on the simultaneous interaction between Red and Blue agents with the environment
+
+'''
 from termcolor import colored
 import sys
 sys.path.append('/home/gabriel/Projects/CybORG-Sims/cage-challenge-2/CybORG/')
@@ -6,33 +11,29 @@ tsize = 80
 
 from CybORG import CybORG
 from CybORG.Agents.SimpleAgents.B_line import *
+from CybORG.Agents.SimpleAgents.Meander import *
 from CybORG.Agents.SimpleAgents.BlueReactAgent import *
-from CybORG.Shared.Actions.AbstractActions import Analyse
+#from CybORG.Shared.Actions.AbstractActions import Analyse
+from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator as fr
 
-import inspect
+path = '../Scenarios/Scenario1b.yaml'
+scenario_gen = fr(path)
 
-path = str(inspect.getfile(CybORG))
-path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-
-env = CybORG(path, 'sim')
-# Qual é a diferença entre os dois??
-# env = CybORG(scenario_gen)
+env = CybORG(scenario_gen, 'sim')
 
 results = env.reset(agent='Red')
-obs = results.observation
-# ou result = env.get_observation('Red')
 
 action_space = results.action_space
 blue_action_space = env.get_action_space('Blue')
-print('')
-# pprint(action_space)
+
+blue_agent = BlueReactRemoveAgent()
+agent = B_lineAgent()
+#agent = RedMeanderAgent()
 
 red_obs = results.observation
-agent = IOT_agent()
-blue_agent = BlueReactRemoveAgent()
 
 def step_red(obs, verbose=True):
-    action = agent.get_action(obs, blue_action_space)
+    action = agent.get_action(obs, action_space)
     results = env.step(action=action, agent='Red')
 
     if verbose:
@@ -40,7 +41,7 @@ def step_red(obs, verbose=True):
     return results
 
 def step_blue(obs, verbose=True):
-    action = blue_agent.get_action(obs, action_space)
+    action = blue_agent.get_action(obs, blue_action_space)
     results = env.step(action=action, agent='Blue')
 
     if verbose:
@@ -48,18 +49,20 @@ def step_blue(obs, verbose=True):
         print('\n')
     return results
 
-for i in range(30):
+i = int(input("Digite o numero de iterações: "))
+
+for i in range(i):
     print(colored(f'{f"ROUND {i+1}": ^{tsize}}', 'yellow'))
     results = step_red(red_obs)
     red_obs = results.observation
     #print(colored(f'{"Red observation":-^{tsize}}', 'red' ))
-    print(colored(f'{f"Sucesso: {red_obs["success"]}": ^{tsize}}', 'red'))
+    # print(colored(f'{f"Sucesso: {red_obs["success"]}": ^{tsize}}', 'red'))
     print('\n')
 
     blue_obs = env.get_observation('Blue')
     #print(colored(f'{"Blue observation":-^{tsize}}', 'blue'))
     results = step_blue(blue_obs)
-    blue_obs = env.get_observation('Blue')
+    blue_obs = results.observation
     #print(colored(f"Sucesso: {blue_obs["success"]}", 'blue'))
     print('\n')
 

@@ -16,13 +16,12 @@ sg = FileReaderScenarioGenerator(path)
 env = CybORG(sg)
 
 results = env.reset(agent='Red')
-print(results)
-obs = results.observation
+pprint(results.observation)
 
-print('Red observations:')
-pprint(obs['User0'])
+#print('Red observations:')
+#pprint(obs['User0'])
 
-blue_obs = env.get_observation(agent='Blue')
+#blue_obs = env.get_observation(agent='Blue')
 
-print('\nBlue observations: ')
-pprint(blue_obs)
+#print('\nBlue observations: ')
+#pprint(blue_obs)

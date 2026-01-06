@@ -1,38 +1,75 @@
+'''
+This test focus on analysing Red and Blue observations, while only Red interacts with the environment.
 
+'''
+from termcolor import colored
 import sys
-sys.path.append("../CybORG/")
+sys.path.append('../CybORG/')
 from pprint import pprint
+tsize = 80
 
 from CybORG import CybORG
-from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator
-from CybORG.Agents import B_lineAgent
-from CybORG.Agents import BlueReactRemoveAgent
-from CybORG.Agents import BlueReactRestoreAgent
-from CybORG.Agents import DroneRedAgent
-from CybORG.Agents.Wrappers import RedTableWrapper
-from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
+from CybORG.Agents.SimpleAgents.B_line import *
+from CybORG.Agents.SimpleAgents.Meander import *
+from CybORG.Agents.SimpleAgents.BlueReactAgent import *
+from CybORG.Simulator.Actions.AbstractActions import Analyse
+from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator as fr
 
-path = "../CybORG/CybORG/Simulator/Scenarios/scenario_files/myscenario2.yaml"
-sg = FileReaderScenarioGenerator(path)
+import inspect
 
-blue_agent = BlueReactRemoveAgent()
-red_agent = B_lineAgent()
+path = '../Scenarios/Scenario1b.yaml'
+scenario = fr(path)
 
-env = CybORG(scenario_generator=sg, agents={'Blue':blue_agent, 'Red':red_agent})
+env = CybORG(scenario, 'sim')
+# Qual é a diferença entre os dois??
+# env = CybORG(scenario_gen)
 
 results = env.reset(agent='Red')
+obs = results.observation
+# ou result = env.get_observation('Red')
 
-pprint(env.get_ip_map())
+action_space = results.action_space
+print('')
+# pprint(action_space)
+
+red_obs = results.observation
+agent = B_lineAgent()
+#agent = RedMeanderAgent()
+blue = BlueReactRemoveAgent()
+
+def step_red(obs, verbose=True):
+    action = agent.get_action(obs, action_space)
+    results = env.step(action=action, agent='Red')
+    obs = results.observation
+
+    if verbose:
+        print(colored( f'{f"Red action: {action}":-^{tsize}}', 'red' ))
+        pprint(obs)
+        print('\n')
+    return results
+
 for i in range(30):
-    red_action_space = env.get_action_space('Red')
-    red_obs = env.get_observation('Red')
-    red_action = red_agent.get_action(observation=red_obs, action_space=red_action_space)
+    print(colored(f'{f"ROUND {i+1}":*^{tsize}}', 'yellow'))
+    print('\n')
+    results = step_red(red_obs)
+    red_obs = results.observation
 
-    results = env.step(action=red_action, agent='Red')
+    blue_obs = env.get_observation('Blue')
+    print(colored(f'{"Blue observation":-^{tsize}}', 'blue'))
+    pprint(blue_obs)
+    print("\n")
 
-    print("--- STEP {} ---".format(1+i))
-    print(red_action)
-    pprint("Sucesso da ação: {}".format(red_obs.get('success')))
-    print()
-    if(red_action.name == "Impact"):
-        break
+
+#host = env.get_last_action('Red').hostname
+
+#action = Analyse(session=0, agent='Blue', hostname=host) 
+
+#results = env.step(action=action, agent='Blue')
+
+#print(colored(f'{"Blue Analyze":-^{tsize}}', 'blue'))
+#pprint(results.observation)
+#pprint(env.get_agent_state('Red'))
+
+#cor = '\033[1;49;31m'
+#print(colored(38*'-' + f'{"IP MAP": ^20}' + 38*'-', 'red'))
+#pprint(env.get_ip_map())
