@@ -20,7 +20,7 @@ Create a virtual environment and install dependencies
 python -m venv .venv
 source .venv/bin/activate
 pip install -U pip
-pip install numpy==1.21.6
+pip install numpy==1.21.6 termcolor
 cd CybORG
 pip install -e .
 ```
