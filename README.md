@@ -21,5 +21,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -U pip
 pip install numpy==1.21.6
+cd CybORG
+pip install -e .
 ```
-The original instructions are found on [https://github.com/cage-challenge/CybORG/blob/2742b5e0ce4330c9b14006b38acd3b5ebe00d6fd/CybORG/Tutorial/0.%20Installation.](https://github.com/cage-challenge/CybORG)
+The original instructions are found on [https://github.com/cage-challenge/CybORG/blob/2742b5e0ce4330c9b14006b38acd3b5ebe00d6fd/CybORG/Tutorial/0.%20Installation.](https://github.com/cage-challenge/CybORG
