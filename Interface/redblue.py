@@ -21,14 +21,41 @@ class Simulation():
     def __init__(self, mode, agents, steps):
         pass
     def start():
-        pass 
+        pass
 
 path = '../Scenarios/Scenario1b.yaml'
 scenario_gen = fr(path)
 
-blue_agent = BlueReactRemoveAgent()
-agent = B_lineAgent()
-#agent = RedMeanderAgent()
+print('Modos')
+print("0 - R vs R")
+mode = int(input('Escolha o modo: '))
+
+print('Agentes Vermelhos')
+print('0 - Baseline')
+print('1 - Meander')
+num = int(input('Escolha o Agente V: '))
+def select_red_agent():
+    if num == 0:
+        agent = B_lineAgent()
+    elif num == 1:
+        agent = RedMeanderAgent()
+    return agent
+
+red_agent = select_red_agent()
+
+blue_agent = None
+print('Agentes Azuis')
+print('0 - React Remove')
+print('1 - React Restore')
+num = int(input('Escolha o Agente A: '))
+def select_blue_agent():
+    if num == 0:
+        agent = BlueReactRemoveAgent()
+    elif num == 1:
+        agent = BlueReactRestoreAgent()
+    return agent
+
+blue_agent = select_blue_agent()
 
 env = CybORG(scenario_gen) 
 
@@ -41,7 +68,7 @@ blue_action_space = env.get_action_space('Blue')
 red_obs = results.observation
 
 def step_red(obs, verbose=True):
-    action = agent.get_action(obs, action_space)
+    action = red_agent.get_action(obs, action_space)
     results = env.step(action=action, agent='Red')
 
     if verbose:
