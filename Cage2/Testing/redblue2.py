@@ -10,12 +10,10 @@ from pprint import pprint
 from CybORG import CybORG
 from CybORG.Agents.SimpleAgents.B_line import B_lineAgent
 from CybORG.Agents.SimpleAgents.BlueReactAgent import BlueReactRemoveAgent
-from CybORG.Simulator.Scenarios import FileReaderScenarioGenerator as fr
 
 path = "../Scenarios/Scenario1b.yaml"
-scenario_gen = fr(path)
 
-env = CybORG(scenario_gen, 'sim')
+env = CybORG(path, 'sim')
 
 results = env.reset(agent='Red')
 
