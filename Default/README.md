@@ -12,7 +12,7 @@ pyenv local 3.8.11
 Create a virtual environment and install dependencies
 ```
 python -m venv .venv &&
-echo 'export PYTHONPATH=$PYTHONPATH:/home/gabriel/Exploring-CyberGym/Cage4/CybORG' >> .venv/bin/activate
+echo 'export PYTHONPATH=$PYTHONPATH:/home/gabriel/Exploring-CyberGym/Cage2/cage-challenge-2' >> .venv/bin/activate
 source .venv/bin/activate &&
 pip install -U pip &&
 pip install numpy==1.21.6 termcolor &&
