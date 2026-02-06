@@ -12,5 +12,5 @@ migrate = Migrate(app, db)
 # from app.routes import *
 # Sometimes it is necessary
 
-from app.routes import  homepage
+from app.routes import homepage
 from app.models import Contato
