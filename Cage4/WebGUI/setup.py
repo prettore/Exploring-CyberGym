@@ -7,7 +7,9 @@ setup(
     author="gabarel707",
     packages=find_packages(),  # encontra automaticamente os pacotes
     install_requires=[
-        "flask"
+        "flask",
+        "Flask-SQLAlchemy",
+        "Flask-Migrate"
     ],
     python_requires=">=3.8",
 )
