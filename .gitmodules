@@ -1,0 +1,11 @@
+[submodule "Cage2/cage-challenge-2"]
+	path = Cage2/cage-challenge-2
+	url = https://github.com/cage-challenge/cage-challenge-2.git
+
+[submodule "Cage4/cage-challenge-4"]
+	path = Cage4/cage-challenge-4
+	url = https://github.com/cage-challenge/cage-challenge-4.git
+
+[submodule "Default/CybORG"]
+	path = Default/CybORG
+	url = https://github.com/cage-challenge/CybORG.git
