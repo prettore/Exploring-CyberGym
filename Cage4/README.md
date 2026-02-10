@@ -12,7 +12,7 @@ pyenv local 3.10
 Create a virtual environment and install dependencies
 ```
 python -m venv .venv &&
-echo 'export PYTHONPATH=$PYTHONPATH:/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
+echo 'export PYTHONPATH=$PYTHONPATH:/path/to/repo/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
 source .venv/bin/activate &&
 pip install -U pip &&
 cd cage-challenge-4 &&
