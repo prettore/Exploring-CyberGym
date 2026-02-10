@@ -9,3 +9,6 @@
 [submodule "Default/CybORG"]
 	path = Default/CybORG
 	url = https://github.com/cage-challenge/CybORG.git
+[submodule "Cage1/-f"]
+	path = Cage1/-f
+	url = https://github.com/cage-challenge/cage-challenge-1.git
