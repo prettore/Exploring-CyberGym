@@ -9,7 +9,9 @@ setup(
     install_requires=[
         "flask",
         "Flask-SQLAlchemy",
-        "Flask-Migrate"
+        "Flask-Migrate",
+        "flask_wtf",
+        "email_validator"
     ],
     python_requires=">=3.8",
 )
