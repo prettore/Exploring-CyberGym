@@ -62,7 +62,8 @@ algo = algo_config.build()
 for i in range(5):
     result = algo.train()
 
-checkpoint_dir = algo.save("results")
+#checkpoint_dir = algo.save("results")
+algo.save_to_path("./results")
 
-print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
+#print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
 
