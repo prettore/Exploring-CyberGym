@@ -43,14 +43,15 @@ algo_config = (
     PPOConfig()
     .environment(env="CC4")
     .debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
-    .multi_agent(policies={
-        ray_agent: PolicySpec(
-            policy_class=None,
-            observation_space=env.observation_space(cyborg_agent),
-            action_space=env.action_space(cyborg_agent),
-            config={"gamma": 0.85},
-        ) for cyborg_agent, ray_agent in POLICY_MAP.items()
-    },
+    .multi_agent(
+        policies={
+            ray_agent: PolicySpec(
+                policy_class=None,
+                observation_space=env.observation_space(cyborg_agent),
+                action_space=env.action_space(cyborg_agent),
+                config={"gamma": 0.85},
+                ) for cyborg_agent, ray_agent in POLICY_MAP.items()
+                },
     policy_mapping_fn=policy_mapper
     )
     .rollouts(num_rollout_workers=1, rollout_fragment_length=50)

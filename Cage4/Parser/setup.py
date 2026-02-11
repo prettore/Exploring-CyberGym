@@ -6,7 +6,7 @@ with open('Requirements.txt') as f:
 
 setup(
     name="Parser",
-    version=1.0,
+    version=2.0,
     install_requires=requirements,
     description="A CybORG network parser for yaml files"
 )
