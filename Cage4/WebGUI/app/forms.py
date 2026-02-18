@@ -3,8 +3,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 from app import db
-from app.models import Contato
 
+'''
 class ContatoForm(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired(), Email()])
@@ -22,3 +22,4 @@ class ContatoForm(FlaskForm):
 
         db.session.add(contato)
         db.session.commit()
+'''

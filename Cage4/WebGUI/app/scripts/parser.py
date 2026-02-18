@@ -22,7 +22,7 @@ state = env.environment_controller.state
 G = state.link_diagram
 
 nx.draw(G, with_labels=True, node_color='orange')
-plt.savefig("./app/scripts/scenario2.png")
+plt.savefig("scenario2.png")
 
 '''
 G = nx.Graph()

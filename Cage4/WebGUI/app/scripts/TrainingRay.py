@@ -23,7 +23,7 @@ def env_creator_CC4(env_config: dict):
     cyborg = CybORG(scenario_generator=sg)
     state = cyborg.environment_controller.state
     G = state.link_diagram
-    plt.savefig("graph.png")
+    plt.savefig("scripts/graph.png")
     env = EnterpriseMAE(env=cyborg, agent_name="blue_agent")
     return env
 
