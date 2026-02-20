@@ -12,6 +12,7 @@ from ray.rllib.algorithms.dqn import DQNConfig, DQN
 from ray.rllib.policy.policy import PolicySpec
 
 import matplotlib.pyplot as plt
+import networkx as nx
 
 def env_creator_CC4(env_config: dict):
     sg = EnterpriseScenarioGenerator(
@@ -23,6 +24,7 @@ def env_creator_CC4(env_config: dict):
     cyborg = CybORG(scenario_generator=sg)
     state = cyborg.environment_controller.state
     G = state.link_diagram
+    nx.draw(G, with_labels=True, node_color='orange')
     plt.savefig("scripts/graph.png")
     env = EnterpriseMAE(env=cyborg, agent_name="blue_agent")
     return env

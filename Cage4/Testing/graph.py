@@ -9,19 +9,42 @@ import random
 from pprint import pprint
 import matplotlib.pyplot as plt
 import networkx as nx
-
+from CybORG import CybORG
+from CybORG.Simulator.Scenarios import EnterpriseScenarioGenerator
 import os
+import json
 
+sg = EnterpriseScenarioGenerator()
+
+env = CybORG(sg)
+
+state = env.environment_controller.state
+
+G = state.link_diagram
+
+# Adicionar peso ou atributo exemplo
+for node in G.nodes():
+    G.nodes[node]['value'] = random.randint(1, 100) 
+
+
+data = nx.node_link_data(G)
+
+with open("graph_data.json", "w") as f:
+    json.dump(data, f)
+
+'''
+nx.draw(G, with_labels=True, node_color='orange')
+plt.savefig("scenario.png")
+plt.show()
+'''
+
+'''
 G = nx.Graph()
 
 def add_router(Graph, Router):
     G.add_node("router {}".format(Router))
 
 data = {}
-
-cwd = os.getcwd()
-file = input("Insert .yaml scenario file: ")
-path = cwd + "/../../Scenarios/" + file
 
 while not (os.path.exists(path)):
     print(path)
@@ -79,3 +102,4 @@ nx.draw_networkx_edges(G, pos, edgelist=dashed_edges, style='dashed', edge_color
 nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold', font_family='monospace')
 
 plt.show()
+'''

@@ -11,6 +11,7 @@ from ray.rllib.algorithms.ppo import PPOConfig
 from ray.rllib.algorithms.dqn import DQNConfig, DQN
 from ray.rllib.policy.policy import PolicySpec
 
+import networkx as nx
 import matplotlib.pyplot as plt
 
 def env_creator_CC4(env_config: dict):
@@ -21,11 +22,12 @@ def env_creator_CC4(env_config: dict):
         steps=50
         )
     cyborg = CybORG(scenario_generator=sg)
-    state = cyborg.environment_controller.state
-    G = state.link_diagram
-    plt.savefig("graph.png")
     env = EnterpriseMAE(env=cyborg, agent_name="blue_agent")
+
+    generate_graph(cyborg)
+
     return env
+
 
 register_env(name="CC4", env_creator=lambda config: env_creator_CC4(config))
 env = env_creator_CC4({})
