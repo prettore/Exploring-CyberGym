@@ -86,8 +86,11 @@ algo_config = (
 
 algo = algo_config.build()
 
-for i in range(100):
-	result = algo.train()
+
+steps = 1
+for i in range(steps):
+	print(i)
+	algo.train()
 
 checkpoint_dir = algo.save("results")
 #algo.save_to_path("results")

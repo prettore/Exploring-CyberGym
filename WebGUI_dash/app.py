@@ -24,17 +24,25 @@ def start_training(cage_path):
 
 import requests, json
 
-def import_graph(cage_path):
+def evaluate_agent(cage_path):
+
+    python_exec = os.path.join(BASE_DIR, "..", cage_path, ".venv", ".bin", "python")
+    script_exec = os.path.join(BASE_DIR, "..", cage_path, "Testing", "evaluate_agent.py")
+
+    subprocess.Popen([
+        python_exec,
+        script_path
+    ])
 
     data = None
     try:
-        with open("../Cage4/Testing/graph_data.json") as f:
+        with open("../Cage4/Testing/graph.json") as f: # Aqui deve ser alterado!
             data = json.load(f)
     except FileNotFoundError:
         print("File not found!")
         return None
 
-    G = nx.node_link_graph(data)
+    G = nx.node_link_graph(data[0]['network_map'])
 
     # generate plot
     pos = nx.spring_layout(G, seed=42)
@@ -128,7 +136,7 @@ app.layout = html.Div([
     dcc.Button("Train!", id="train", n_clicks=0),
     dcc.Button("Create graph", id="refresh-graph", n_clicks=0),
     html.P(id='dummy'),
-    dcc.Store(id="mystorage")
+    dcc.Store(id="cage-path")
 
 ]), html.Div([
     html.H2("Rede Interativa"),
@@ -138,21 +146,36 @@ app.layout = html.Div([
             'data': [],
             'layout': {}
         },
-        style={'height': '80vh'}
+        style={'height': '80vh'},
+        style={'display': 'none'}
+    ),
+    dcc.Button('>', id='start'),  # Ao apertar o botão, o Slider será movimentado automaticamente!
+    dcc.Button('||', id='pause'), # pausa!
+    dcc.Slider( # cada numero do slider vai desenhar um 
+        0,
+        50,
+        value=0,
+        id="network-slider",
+        style={'display': 'none'}
     )
+]), html.Footer([
+    html.H5("This is a scientific initiation project that uses CybORG research gym")
 ])
 
 @app.callback(
     Output('network-graph', 'figure'),
-    Input('refresh-graph', 'n_clicks'),
-    State('mystorage', 'data'),
+    Output('network-graph', 'style'),
+    Output('network-slider', 'style'),
+    Input('network-slider', 'value'),
+    State('cage-path', 'data'),
     prevent_initial_call=True
 )
 def update_graph(n_clicks, data):
+    fig = import_graph(data)
     return import_graph(data)
 
 @app.callback(
-    Output('mystorage', 'data'),
+    Output('cage-path', 'data'),
     Input('choose-cage', 'value')
 )
 def choose_cage(value):
@@ -161,10 +184,10 @@ def choose_cage(value):
 @app.callback(
     Output('dummy', 'children'),
     Input('train', 'n_clicks'),
-    State('mystorage', 'data'),
+    State('cage-path', 'data'),
     prevent_initial_call=True
 )
-def start(n_clicks ,data):
+def train(n_clicks, data):
     return start_training(data)
 
 

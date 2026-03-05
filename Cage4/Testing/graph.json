@@ -1,0 +1,3136 @@
+[
+    {
+        "active_agents": {
+            "blue": [
+                "blue_agent_1",
+                "blue_agent_3",
+                "blue_agent_4",
+                "blue_agent_0",
+                "blue_agent_2"
+            ],
+            "red": [
+                "red_agent_0"
+            ]
+        },
+        "agent_label_mapping": {
+            "blue_agent_0": "B0",
+            "blue_agent_1": "B1",
+            "blue_agent_2": "B2",
+            "blue_agent_3": "B3",
+            "red_agent_0": "R0",
+            "blue_agent_4": "B4"
+        },
+        "host_sessions": [
+            [
+                "restricted_zone_a_subnet_router",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_0",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_1",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_2",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_3",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_4",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_5",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_6",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_0",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_1",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_2",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_3",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_4",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_5",
+                "blue_agent_0"
+            ],
+            [
+                "operational_zone_a_subnet_router",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_0",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_1",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_2",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_3",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_4",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_5",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_6",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_7",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_0",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_1",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_2",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_3",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_4",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_5",
+                "blue_agent_1"
+            ],
+            [
+                "restricted_zone_b_subnet_router",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_0",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_1",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_2",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_3",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_4",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_5",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_6",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_7",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_8",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_0",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_1",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_2",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_3",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_4",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_5",
+                "blue_agent_2"
+            ],
+            [
+                "operational_zone_b_subnet_router",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_0",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_1",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_2",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_3",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_4",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_5",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_6",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_7",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_8",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_server_host_0",
+                "blue_agent_3"
+            ],
+            [
+                "contractor_network_subnet_server_host_1",
+                "red_agent_0"
+            ],
+            [
+                "public_access_zone_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_5",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_6",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_7",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_5",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_6",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_7",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_8",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_9",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_3",
+                "blue_agent_4"
+            ]
+        ],
+        "compromised_hosts": [
+            "contractor_network_subnet_server_host_1"
+        ],
+        "red_root_nodes": [],
+        "network_map": {
+            "directed": false,
+            "multigraph": false,
+            "graph": {},
+            "nodes": [
+                {
+                    "id": "restricted_zone_a_subnet_router"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_0"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_1"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_2"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_3"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_4"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_5"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_6"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_0"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_1"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_2"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_3"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_4"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_5"
+                },
+                {
+                    "id": "operational_zone_a_subnet_router"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_0"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_1"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_2"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_3"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_4"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_5"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_6"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_7"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_0"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_1"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_2"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_3"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_4"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_5"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_router"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_0"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_1"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_2"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_3"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_4"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_5"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_6"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_7"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_8"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_0"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_1"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_2"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_3"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_4"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_5"
+                },
+                {
+                    "id": "operational_zone_b_subnet_router"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_0"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_1"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_2"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_3"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_4"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_5"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_6"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_7"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_8"
+                },
+                {
+                    "id": "operational_zone_b_subnet_server_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_router"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_1"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_2"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_3"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_4"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_5"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_6"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_1"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_2"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_3"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_4"
+                },
+                {
+                    "id": "public_access_zone_subnet_router"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_0"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_1"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_2"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_3"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_4"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_5"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_6"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_7"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_0"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_1"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_2"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_3"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_4"
+                },
+                {
+                    "id": "admin_network_subnet_router"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_0"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_1"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_2"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_3"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_4"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_5"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_6"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_7"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_8"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_9"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_0"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_1"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_2"
+                },
+                {
+                    "id": "office_network_subnet_router"
+                },
+                {
+                    "id": "office_network_subnet_user_host_0"
+                },
+                {
+                    "id": "office_network_subnet_user_host_1"
+                },
+                {
+                    "id": "office_network_subnet_user_host_2"
+                },
+                {
+                    "id": "office_network_subnet_user_host_3"
+                },
+                {
+                    "id": "office_network_subnet_user_host_4"
+                },
+                {
+                    "id": "office_network_subnet_server_host_0"
+                },
+                {
+                    "id": "office_network_subnet_server_host_1"
+                },
+                {
+                    "id": "office_network_subnet_server_host_2"
+                },
+                {
+                    "id": "office_network_subnet_server_host_3"
+                },
+                {
+                    "id": "root_internet_host_0"
+                },
+                {
+                    "id": "blue_agent_1"
+                },
+                {
+                    "id": "blue_agent_3"
+                },
+                {
+                    "id": "blue_agent_4"
+                },
+                {
+                    "id": "blue_agent_0"
+                },
+                {
+                    "id": "blue_agent_2"
+                },
+                {
+                    "id": "red_agent_0"
+                }
+            ],
+            "links": [
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_router"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_1"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_2"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_3"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_4"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_5"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_6"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_1"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_2"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_3"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_4"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_5"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_0",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_1",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_2",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_3",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_4",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_5",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_6",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_0",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_1",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_2",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_3",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_4",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_5",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_2"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_3"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_4"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_5"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_6"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_7"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_2"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_3"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_4"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_5"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_0",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_1",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_2",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_3",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_4",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_5",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_6",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_7",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_0",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_1",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_2",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_3",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_4",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_5",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_router"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_3"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_4"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_5"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_6"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_7"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_8"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_3"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_4"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_5"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_0",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_1",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_2",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_3",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_4",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_5",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_6",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_7",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_8",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_0",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_1",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_2",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_3",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_4",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_5",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_0"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_1"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_2"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_4"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_5"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_6"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_7"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_8"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_server_host_0"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_0",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_1",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_2",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_3",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_4",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_5",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_6",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_7",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_8",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_server_host_0",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_1"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_2"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_4"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_5"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_6"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_1"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_2"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_4"
+                },
+                {
+                    "source": "contractor_network_subnet_server_host_1",
+                    "target": "red_agent_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "admin_network_subnet_router"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "office_network_subnet_router"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_1"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_2"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_3"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_5"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_6"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_7"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_1"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_2"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_3"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_5",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_6",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_7",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_0"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_1"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_2"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_3"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_4"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_5"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_6"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_7"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_8"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_9"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_0"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_1"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_2"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_5",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_6",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_7",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_8",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_9",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_0"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_1"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_2"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_3"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_4"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_0"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_1"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_2"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_3"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_3",
+                    "target": "blue_agent_4"
+                }
+            ]
+        }
+    },
+    {
+        "network_map": {
+            "directed": false,
+            "multigraph": false,
+            "graph": {},
+            "nodes": [
+                {
+                    "id": "restricted_zone_a_subnet_router"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_0"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_1"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_2"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_3"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_4"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_5"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_user_host_6"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_0"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_1"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_2"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_3"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_4"
+                },
+                {
+                    "id": "restricted_zone_a_subnet_server_host_5"
+                },
+                {
+                    "id": "operational_zone_a_subnet_router"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_0"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_1"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_2"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_3"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_4"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_5"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_6"
+                },
+                {
+                    "id": "operational_zone_a_subnet_user_host_7"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_0"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_1"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_2"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_3"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_4"
+                },
+                {
+                    "id": "operational_zone_a_subnet_server_host_5"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_router"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_0"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_1"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_2"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_3"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_4"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_5"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_6"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_7"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_user_host_8"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_0"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_1"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_2"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_3"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_4"
+                },
+                {
+                    "id": "restricted_zone_b_subnet_server_host_5"
+                },
+                {
+                    "id": "operational_zone_b_subnet_router"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_0"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_1"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_2"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_3"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_4"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_5"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_6"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_7"
+                },
+                {
+                    "id": "operational_zone_b_subnet_user_host_8"
+                },
+                {
+                    "id": "operational_zone_b_subnet_server_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_router"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_1"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_2"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_3"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_4"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_5"
+                },
+                {
+                    "id": "contractor_network_subnet_user_host_6"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_0"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_1"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_2"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_3"
+                },
+                {
+                    "id": "contractor_network_subnet_server_host_4"
+                },
+                {
+                    "id": "public_access_zone_subnet_router"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_0"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_1"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_2"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_3"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_4"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_5"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_6"
+                },
+                {
+                    "id": "public_access_zone_subnet_user_host_7"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_0"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_1"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_2"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_3"
+                },
+                {
+                    "id": "public_access_zone_subnet_server_host_4"
+                },
+                {
+                    "id": "admin_network_subnet_router"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_0"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_1"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_2"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_3"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_4"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_5"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_6"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_7"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_8"
+                },
+                {
+                    "id": "admin_network_subnet_user_host_9"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_0"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_1"
+                },
+                {
+                    "id": "admin_network_subnet_server_host_2"
+                },
+                {
+                    "id": "office_network_subnet_router"
+                },
+                {
+                    "id": "office_network_subnet_user_host_0"
+                },
+                {
+                    "id": "office_network_subnet_user_host_1"
+                },
+                {
+                    "id": "office_network_subnet_user_host_2"
+                },
+                {
+                    "id": "office_network_subnet_user_host_3"
+                },
+                {
+                    "id": "office_network_subnet_user_host_4"
+                },
+                {
+                    "id": "office_network_subnet_server_host_0"
+                },
+                {
+                    "id": "office_network_subnet_server_host_1"
+                },
+                {
+                    "id": "office_network_subnet_server_host_2"
+                },
+                {
+                    "id": "office_network_subnet_server_host_3"
+                },
+                {
+                    "id": "root_internet_host_0"
+                },
+                {
+                    "id": "blue_agent_1"
+                },
+                {
+                    "id": "blue_agent_3"
+                },
+                {
+                    "id": "blue_agent_4"
+                },
+                {
+                    "id": "blue_agent_0"
+                },
+                {
+                    "id": "blue_agent_2"
+                },
+                {
+                    "id": "red_agent_0"
+                }
+            ],
+            "links": [
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_router"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_1"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_2"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_3"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_4"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_5"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_user_host_6"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_1"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_2"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_3"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_4"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "restricted_zone_a_subnet_server_host_5"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_router",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_0",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_1",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_2",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_3",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_4",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_5",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_user_host_6",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_0",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_1",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_2",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_3",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_4",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "restricted_zone_a_subnet_server_host_5",
+                    "target": "blue_agent_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_2"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_3"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_4"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_5"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_6"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_user_host_7"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_0"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_2"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_3"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_4"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "operational_zone_a_subnet_server_host_5"
+                },
+                {
+                    "source": "operational_zone_a_subnet_router",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_0",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_1",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_2",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_3",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_4",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_5",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_6",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_user_host_7",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_0",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_1",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_2",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_3",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_4",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "operational_zone_a_subnet_server_host_5",
+                    "target": "blue_agent_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_router"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_3"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_4"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_5"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_6"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_7"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_user_host_8"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_0"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_1"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_3"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_4"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "restricted_zone_b_subnet_server_host_5"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_router",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_0",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_1",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_2",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_3",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_4",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_5",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_6",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_7",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_user_host_8",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_0",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_1",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_2",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_3",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_4",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "restricted_zone_b_subnet_server_host_5",
+                    "target": "blue_agent_2"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_0"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_1"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_2"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_4"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_5"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_6"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_7"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_user_host_8"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "operational_zone_b_subnet_server_host_0"
+                },
+                {
+                    "source": "operational_zone_b_subnet_router",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_0",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_1",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_2",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_3",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_4",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_5",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_6",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_7",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_user_host_8",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "operational_zone_b_subnet_server_host_0",
+                    "target": "blue_agent_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_1"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_2"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_4"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_5"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_user_host_6"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_0"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_1"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_2"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_3"
+                },
+                {
+                    "source": "contractor_network_subnet_router",
+                    "target": "contractor_network_subnet_server_host_4"
+                },
+                {
+                    "source": "contractor_network_subnet_server_host_1",
+                    "target": "red_agent_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "root_internet_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "admin_network_subnet_router"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "office_network_subnet_router"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_1"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_2"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_3"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_5"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_6"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_user_host_7"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_0"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_1"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_2"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_3"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "public_access_zone_subnet_server_host_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_5",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_6",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_user_host_7",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "public_access_zone_subnet_server_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_0"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_1"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_2"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_3"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_4"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_5"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_6"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_7"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_8"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_user_host_9"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_0"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_1"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "admin_network_subnet_server_host_2"
+                },
+                {
+                    "source": "admin_network_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_5",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_6",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_7",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_8",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_user_host_9",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "admin_network_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_0"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_1"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_2"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_3"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_user_host_4"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_0"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_1"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_2"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "office_network_subnet_server_host_3"
+                },
+                {
+                    "source": "office_network_subnet_router",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_3",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_user_host_4",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_0",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_1",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_2",
+                    "target": "blue_agent_4"
+                },
+                {
+                    "source": "office_network_subnet_server_host_3",
+                    "target": "blue_agent_4"
+                }
+            ]
+        },
+        "active_agents": {
+            "blue": [
+                "blue_agent_1",
+                "blue_agent_3",
+                "blue_agent_4",
+                "blue_agent_0",
+                "blue_agent_2"
+            ],
+            "red": [
+                "red_agent_0"
+            ]
+        },
+        "agent_label_mapping": {
+            "blue_agent_0": "B0",
+            "blue_agent_1": "B1",
+            "blue_agent_2": "B2",
+            "blue_agent_3": "B3",
+            "red_agent_0": "R0",
+            "blue_agent_4": "B4"
+        },
+        "host_sessions": [
+            [
+                "restricted_zone_a_subnet_router",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_0",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_1",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_2",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_3",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_4",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_5",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_user_host_6",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_0",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_1",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_2",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_3",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_4",
+                "blue_agent_0"
+            ],
+            [
+                "restricted_zone_a_subnet_server_host_5",
+                "blue_agent_0"
+            ],
+            [
+                "operational_zone_a_subnet_router",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_0",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_1",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_2",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_3",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_4",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_5",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_6",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_user_host_7",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_0",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_1",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_2",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_3",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_4",
+                "blue_agent_1"
+            ],
+            [
+                "operational_zone_a_subnet_server_host_5",
+                "blue_agent_1"
+            ],
+            [
+                "restricted_zone_b_subnet_router",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_0",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_1",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_2",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_3",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_4",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_5",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_6",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_7",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_user_host_8",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_0",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_1",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_2",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_3",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_4",
+                "blue_agent_2"
+            ],
+            [
+                "restricted_zone_b_subnet_server_host_5",
+                "blue_agent_2"
+            ],
+            [
+                "operational_zone_b_subnet_router",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_0",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_1",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_2",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_3",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_4",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_5",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_6",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_7",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_user_host_8",
+                "blue_agent_3"
+            ],
+            [
+                "operational_zone_b_subnet_server_host_0",
+                "blue_agent_3"
+            ],
+            [
+                "contractor_network_subnet_server_host_1",
+                "red_agent_0"
+            ],
+            [
+                "public_access_zone_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_5",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_6",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_user_host_7",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "public_access_zone_subnet_server_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_5",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_6",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_7",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_8",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_user_host_9",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "admin_network_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_router",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_3",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_user_host_4",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_0",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_1",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_2",
+                "blue_agent_4"
+            ],
+            [
+                "office_network_subnet_server_host_3",
+                "blue_agent_4"
+            ]
+        ],
+        "compromised_hosts": [
+            "contractor_network_subnet_server_host_1"
+        ],
+        "red_root_nodes": []
+    }
+]
