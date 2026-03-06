@@ -38,6 +38,7 @@ obs, _ = mae.reset()
 import os
 base_dir = os.path.abspath(".")
 checkpoint_path = os.path.join(base_dir, "results")
+# Recuperando o agente
 algo = Algorithm.from_checkpoint(checkpoint_path)
 
 steps = 50
@@ -45,7 +46,7 @@ total = {}
 
 visualise = VisualiseRedExpansionMod(mae.env, steps)
 
-for i in range(1):
+for i in range(5):
 
 	print('step ',i)
 
@@ -64,13 +65,13 @@ for i in range(1):
 
 	visualise.modified_run(mae.env)
 
-network_list = visualise.get_graph()
+import pickle
+
 #G[idx]['agent_label_mapping']
+collected_figures = visualise.get_figures()
 
-import json
-from networkx.readwrite import json_graph
+with open('graph.pkl', 'wb') as f:
+    pickle.dump(collected_figures, f)
 
-with open('graph.json', 'w') as f:
-    json.dump(network_list, f, indent=4) # Using indent for pretty-printing
-
-pprint(total)
+# TODO - CRIAR VISUALIZAÇÃO DE RECOMPENSAS
+# pprint(total)

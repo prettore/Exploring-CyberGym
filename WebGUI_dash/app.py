@@ -17,96 +17,40 @@ def start_training(cage_path):
     python_exec = os.path.join(BASE_DIR, "..", cage_path, ".venv", "bin", "python")
     script_path = os.path.join(BASE_DIR, "..", cage_path, "Testing", "train.py")
 
-    subprocess.Popen([
-        python_exec,
-        script_path
-    ])
+    env = os.environ.copy()
+    env["PYTHONPATH"] = "/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4"
 
-import requests, json
+    subprocess.Popen(
+        [python_exec, script_path],
+      env=env
+    )
+
+import requests, pickle
 
 def evaluate_agent(cage_path):
 
-    python_exec = os.path.join(BASE_DIR, "..", cage_path, ".venv", ".bin", "python")
-    script_exec = os.path.join(BASE_DIR, "..", cage_path, "Testing", "evaluate_agent.py")
+    python_exec = os.path.join(BASE_DIR, "..", cage_path, ".venv", "bin", "python")
+    script_path = os.path.join(BASE_DIR, "..", cage_path, "Testing", "evaluate_agent.py")
 
-    subprocess.Popen([
-        python_exec,
-        script_path
-    ])
+    env = os.environ.copy()
+    env["PYTHONPATH"] = "/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4"
 
-    data = None
+    subprocess.Popen(
+       [python_exec, script_path],
+      env=env
+    )
+
+def create_graph(idx):
+    
+    collected_networks = None
     try:
-        with open("../Cage4/Testing/graph.json") as f: # Aqui deve ser alterado!
-            data = json.load(f)
+        with open("graph.pkl", "rb") as f:
+           collected_networks = pickle.load(f)
     except FileNotFoundError:
         print("File not found!")
         return None
 
-    G = nx.node_link_graph(data[0]['network_map'])
-
-    # generate plot
-    pos = nx.spring_layout(G, seed=42)
-
-    # Edge traces
-    edge_x = []
-    edge_y = []
-
-    for edge in G.edges():
-        x0, y0 = pos[edge[0]]
-        x1, y1 = pos[edge[1]]
-        edge_x += [x0, x1, None]
-        edge_y += [y0, y1, None]
-
-    edge_trace = go.Scatter(
-        x=edge_x,
-        y=edge_y,
-        line=dict(width=1),
-        hoverinfo='none',
-        mode='lines'
-    )
-
-    # Node traces
-    node_x = []
-    node_y = []
-    node_text = []
-    node_color = []
-
-    for node in G.nodes():
-        x, y = pos[node]
-        node_x.append(x)
-        node_y.append(y)
-        node_text.append(f"{node}<br>Valor: {G.nodes[node]['value']}")
-        node_color.append(G.degree[node])
-
-    node_trace = go.Scatter(
-        x=node_x,
-        y=node_y,
-        mode='markers',
-        hoverinfo='text',
-        text=node_text,
-        marker=dict(
-            showscale=True,
-            colorscale='Viridis',
-            color=node_color,
-            size=15,
-            colorbar=dict(
-                title="Grau"
-            ),
-            line_width=2
-        )
-    )
-
-    fig = go.Figure(
-        data=[edge_trace, node_trace],
-        layout=go.Layout(
-            showlegend=False,
-            hovermode='closest',
-            margin=dict(b=0, l=0, r=0, t=0),
-            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)
-        )
-    )
-
+    fig = collected_networks[idx]
     return fig
 
     
@@ -133,8 +77,8 @@ app.layout = html.Div([
         'cage-challenge-1',
         id='choose-cage'
     ),
-    dcc.Button("Train!", id="train", n_clicks=0),
-    dcc.Button("Create graph", id="refresh-graph", n_clicks=0),
+    dcc.Button("Train", id="train", n_clicks=0),
+    dcc.Button("Evaluate", id="evaluate", n_clicks=0),
     html.P(id='dummy'),
     dcc.Store(id="cage-path")
 
@@ -146,33 +90,50 @@ app.layout = html.Div([
             'data': [],
             'layout': {}
         },
-        style={'height': '80vh'},
-        style={'display': 'none'}
-    ),
+        style={'height': '80vh',
+        'display': 'none'}
+        ),
     dcc.Button('>', id='start'),  # Ao apertar o botão, o Slider será movimentado automaticamente!
     dcc.Button('||', id='pause'), # pausa!
-    dcc.Slider( # cada numero do slider vai desenhar um 
-        0,
-        50,
-        value=0,
-        id="network-slider",
-        style={'display': 'none'}
-    )
+
+    html.Div(
+    id="slider-container",
+    children=[
+        dcc.Slider(
+            0,
+            5,
+            value=0,
+            id="network-slider"
+            )
+    ],
+    style={"display": "none"}  # esconde aqui
+    ),
+
 ]), html.Footer([
     html.H5("This is a scientific initiation project that uses CybORG research gym")
 ])
 
 @app.callback(
     Output('network-graph', 'figure'),
-    Output('network-graph', 'style'),
-    Output('network-slider', 'style'),
     Input('network-slider', 'value'),
+    prevent_initial_call=True
+)
+def update_graph(value):
+    fig = create_graph(value)
+    return fig
+
+@app.callback(
+    Output('network-graph', 'style'),
+    Output('slider-container', 'style'),
+    Input('evaluate', 'n_clicks'),
     State('cage-path', 'data'),
     prevent_initial_call=True
 )
-def update_graph(n_clicks, data):
-    fig = import_graph(data)
-    return import_graph(data)
+def evaluate(n_clicks, data):
+    visible_style = {"display": "block"}
+    evaluate_agent(data)
+    #update_graph(0)
+    return visible_style, visible_style
 
 @app.callback(
     Output('cage-path', 'data'),

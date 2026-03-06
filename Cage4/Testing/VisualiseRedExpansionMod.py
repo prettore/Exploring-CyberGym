@@ -120,20 +120,6 @@ class VisualiseRedExpansionMod():
             }
 
         self.collected_networks.append(new_network_info)
-        
-    def get_graph(self):
-        serializable = []
-
-        for step in self.collected_networks:
-            step_copy = step.copy()
-
-            # converter Graph -> dict
-            step_copy['network_map'] = json_graph.node_link_data(step['network_map'])
-
-            serializable.append(step_copy)
-
-        return serializable
-        
 
     def _btn_forward(self, ev):
         pos = self.slider.val
@@ -159,83 +145,106 @@ class VisualiseRedExpansionMod():
     def _btn_pause(self, ev):
         self.play_view_flag = False
 
-    def _draw_network(self, idx, init:bool = False):
+    def get_figures(self, init:bool = False):
+        import copy
+        collected_networks = copy.copy(self.collected_networks)
+        for idx, G in enumerate(collected_networks):
 
-        G = self.collected_networks[idx]['network_map']
+            G = G['network_map']
+            pos = nx.spring_layout(G, seed=42)
+                
+            traces = []
+            figures = []
 
-        #nodes = G.nodes()
+            # ======================
+            # EDGES
+            # ======================
 
-        # posições dos nós
-        pos = nx.spring_layout(G, seed=42)
-        
-        # tipos de hosts
-        types = {
-            "A": "server",
-            "B": "client",
-            "C": "router",
-            "D": "client"
-        }
+            def make_edges(edgelist, dash=None):
+                edge_x, edge_y = [], []
+                for u, v in edgelist:
+                    x0, y0 = pos[u]
+                    x1, y1 = pos[v]
+                    edge_x += [x0, x1, None]
+                    edge_y += [y0, y1, None]
 
-        # mapeamento de símbolos
-        symbols = {
-            "server": "square",
-            "client": "circle",
-            "router": "diamond"
-        }
+                return go.Scatter(
+                    x=edge_x,
+                    y=edge_y,
+                    mode='lines',
+                    line=dict(width=1, dash=dash),
+                    hoverinfo='none'
+                )
 
-        # arestas
-        edges = [("A", "B"), ("B", "C"), ("B", "D")]
+            traces.append(make_edges(self.host_interfaces))                     # normal
+            traces.append(make_edges(collected_networks[idx]['host_sessions'], dash='dot'))   # estilo ':'
 
-        # linhas (arestas)
-        edge_x, edge_y = [], []
-        for u, v in edges:
-            x0, y0 = pos[u]
-            x1, y1 = pos[v]
-            edge_x += [x0, x1, None]
-            edge_y += [y0, y1, None]
+            # ======================
+            # NODES
+            # ======================
 
-        edge_trace = go.Scatter(
-            x=edge_x, y=edge_y,
-            mode='lines',
-            line=dict(width=1),
-            hoverinfo='none'
-        )
-        '''
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.host_nodes['users'], node_size=200, node_color='#C0C0C0', alpha=0.9, node_shape='o')
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.host_nodes['servers'], node_size=200, node_color='#C0C0C0', alpha=0.9, node_shape='s')
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.host_nodes['other'], node_size=400, node_color='#C0C0C0', alpha=0.9, node_shape='H')
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.collected_networks[idx]['active_agents']['red'], node_size=200, node_color='#EE4B2B', node_shape='^')
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.collected_networks[idx]['active_agents']['blue'], node_size=200, node_color='#0096FF', node_shape='^')
-        nx.draw_networkx_edges(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, edgelist=self.host_interfaces)
-        nx.draw_networkx_edges(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, edgelist=self.collected_networks[idx]['host_sessions'], style=':')
-        nx.draw_networkx_labels(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, labels=self.node_label_mapping, font_size=10)
-        nx.draw_networkx_labels(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, labels=self.collected_networks[idx]['agent_label_mapping'], font_size=10)
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.collected_networks[idx]['compromised_hosts'], node_size=200, node_color='#FFA500', alpha=0.8)
-        nx.draw_networkx_nodes(self.collected_networks[idx]['network_map'], self.pos, ax=self.ax, nodelist=self.collected_networks[idx]['red_root_nodes'], node_size=200, node_color='#EE4B2B', alpha=0.8)
-        '''
+            def make_nodes(nodelist, color, symbol, size=200, alpha=1, text=None):
+                x, y, labels = [], [], []
 
-        # nós separados por tipo (para legenda)
-        node_traces = []
-        for t in set(types.values()):
-            xs, ys, labels = [], [], []
-            for n, tp in types.items():
-                if tp == t:
-                    x, y = pos[n]
-                    xs.append(x)
-                    ys.append(y)
-                    labels.append(n)
+                for n in nodelist:
+                    if n not in pos:
+                        continue
+                    xi, yi = pos[n]
+                    x.append(xi)
+                    y.append(yi)
+                    labels.append(text[n] if text and n in text else str(n))
 
-            node_traces.append(go.Scatter(
-                x=xs, y=ys,
-                mode='markers+text',
-                text=labels,
-                textposition="top center",
-                marker=dict(size=12, symbol=symbols[t]),
-                name=t  # aparece na legenda
-            ))
+                return go.Scatter(
+                    x=x,
+                    y=y,
+                    mode='markers+text',
+                    text=labels,
+                    textposition="top center",
+                    marker=dict(
+                        size=size/20,   # plotly usa escala diferente
+                        color=color,
+                        symbol=symbol,
+                        opacity=alpha
+                    )
+                )
 
-        fig = go.Figure(data=[edge_trace, node_traces])
-        fig.update_layout(showlegend=True)
+            # ======================
+            # TIPOS DE HOST
+            # ======================
+
+            traces.append(make_nodes(self.host_nodes['users'], '#C0C0C0', 'circle'))
+            traces.append(make_nodes(self.host_nodes['servers'], '#C0C0C0', 'square'))
+            traces.append(make_nodes(self.host_nodes['other'], '#C0C0C0', 'hexagon'))
+
+            # ======================
+            # AGENTES
+            # ======================
+
+            traces.append(make_nodes(collected_networks[idx]['active_agents']['red'], '#EE4B2B', 'triangle-up'))
+            traces.append(make_nodes(collected_networks[idx]['active_agents']['blue'], '#0096FF', 'triangle-up'))
+
+            # ======================
+            # ESTADOS
+            # ======================
+
+            traces.append(make_nodes(collected_networks[idx]['compromised_hosts'], '#FFA500', 'circle', alpha=0.8))
+            traces.append(make_nodes(collected_networks[idx]['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8))
+
+            # ======================
+            # FIGURE
+            # ======================
+
+            fig = go.Figure(data=traces)
+
+            fig.update_layout(
+                showlegend=False,
+                xaxis=dict(showgrid=False, zeroline=False, visible=False),
+                yaxis=dict(showgrid=False, zeroline=False, visible=False)
+            )
+
+            figures.append(fig)
+
+        return figures
 
     # get the compromised nodes for colour coding
     def _get_compromised_nodes(self):
