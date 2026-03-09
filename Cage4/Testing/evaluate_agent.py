@@ -18,15 +18,15 @@ def env_creator_CC4(env_config: dict):
 		steps=50
 		)
 	cyborg = CybORG(scenario_generator=sg)
-	mae = EnterpriseMAE(env=cyborg, agent_name="blue_agent") 
+	mae = EnterpriseMAE(env=cyborg, agent_name='blue_agent') 
 
 	return mae
 
-register_env(name="CC4", env_creator=lambda config: env_creator_CC4(config))
+register_env(name='CC4', env_creator=lambda config: env_creator_CC4(config))
 mae = env_creator_CC4({})
 
 NUM_AGENTS = 5
-POLICY_MAP = {f"blue_agent_{i}": f"Agent{i}" for i in range(NUM_AGENTS)}
+POLICY_MAP = {f'blue_agent_{i}': f'Agent{i}' for i in range(NUM_AGENTS)}
 
 def policy_mapper(agent_id, episode, worker, **kwargs):
 	return POLICY_MAP[agent_id]
@@ -36,8 +36,8 @@ from pprint import pprint
 obs, _ = mae.reset()
 
 import os
-base_dir = os.path.abspath(".")
-checkpoint_path = os.path.join(base_dir, "results")
+base_dir = os.path.abspath('.')
+checkpoint_path = os.path.join(base_dir, 'results')
 # Recuperando o agente
 algo = Algorithm.from_checkpoint(checkpoint_path)
 
@@ -48,7 +48,7 @@ visualise = VisualiseRedExpansionMod(mae.env, steps)
 
 for i in range(5):
 
-	print('step ',i)
+	print('step ', i)
 
 	actions = {}
 	for agent_id, agent_obs in obs.items():
