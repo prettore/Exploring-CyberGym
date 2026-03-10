@@ -49,7 +49,8 @@ visualise = VisualiseRedExpansionMod(mae.env, steps)
 
 for i in range(5):
 
-	print('step ', i)
+	print('DEBUG')
+	print('evaluation step', i)
 
 	actions = {}
 	for agent_id, agent_obs in obs.items():
@@ -76,3 +77,11 @@ with open('graph.pkl', 'wb') as f:
 
 # TODO - CRIAR VISUALIZAÇÃO DE RECOMPENSAS
 # pprint(total)
+
+def main():
+	if len(sys.argv) > 1:
+
+	else:
+		print('Error on loading agent file - evaluate_agent.py')
+
+if __name__ == '__main__':

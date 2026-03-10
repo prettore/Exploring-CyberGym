@@ -86,13 +86,25 @@ algo_config = (
 
 algo = algo_config.build()
 
-
 steps = 1
 for i in range(steps):
-	print(i)
+	
+	print('DEBUG')
+	print('training step', i)
+
 	algo.train()
 
-checkpoint_dir = algo.save("results")
-#algo.save_to_path("results")
+import os
+root_path = 'results'
+path = os.path.join(root_path, 'training')
+
+dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
+#max_dir = max(dirs, key=lambda file: file[-1])
+
+max_dir_number = max([file[-1] for file in dirs])
+
+path += str(int(max_dir_number)+1)
+
+checkpoint_dir = algo.save(path)
 
 print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
