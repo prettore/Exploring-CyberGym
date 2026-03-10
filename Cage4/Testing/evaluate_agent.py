@@ -37,8 +37,9 @@ obs, _ = mae.reset()
 
 import os
 base_dir = os.path.abspath('.')
+
+# Retrieving the agent
 checkpoint_path = os.path.join(base_dir, 'results')
-# Recuperando o agente
 algo = Algorithm.from_checkpoint(checkpoint_path)
 
 steps = 50

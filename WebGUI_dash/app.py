@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def start_training(cage_path):
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
-    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train.py')
+    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train_agent.py')
 
     env = os.environ.copy()
     env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
@@ -27,11 +27,13 @@ def start_training(cage_path):
 
 import requests, pickle
 
+def ()
+
 def evaluate_agent(cage_path, agent_path):
-    # TODO - Create a way to choose the agent file
-    agent_path = 'evaluate_agent.py'
+
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
-    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', agent_path)
+    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'evaluate_agent.py')
+    # TODO - Create a way to choose the agent file
 
     env = os.environ.copy()
     env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
@@ -52,7 +54,7 @@ def create_graph(idx):
         return None
 
     fig = collected_figures[idx]
-    print(collected_figures[1])
+    #print(collected_figures[1])
     return fig
 
     
@@ -82,7 +84,7 @@ app.layout = html.Div([
         id='choose-cage'
     ),
 
-    html.Div(id="train-loading"),
+    html.P(id='train-loading'),
 
     html.P(id='train-warning'),
 
@@ -91,7 +93,8 @@ app.layout = html.Div([
     dcc.Dropdown(
         'agent',
         'cage-challenge-1',
-        id='choose-agent'
+        id='choose-agent',
+        style={'margin':'20px 0px'}
     ),
 
     html.Div(id="eval-loading"),
@@ -206,14 +209,15 @@ train_process = None
 @app.callback(
     Output('train-warning', 'children', allow_duplicate=True),
     Output('train-warning-clear', 'disabled'),
-    Input('train-warning-clear', 'n_intervals')
+    Input('train-warning-clear', 'n_intervals'),
+    prevent_initial_call=True
 )
-def clean_warning(n):
+def clean_train_warning(n):
     return '', True
 
 @app.callback(
     Output('train-warning', 'children', allow_duplicate=True),
-    Output('train-warning-clear', 'disabled'),
+    Output('train-warning-clear', 'disabled', allow_duplicate=True),
     Output('train-poller', 'disabled', allow_duplicate=True),
     Output('train-running', 'data'),
     Input('train', 'n_clicks'),
