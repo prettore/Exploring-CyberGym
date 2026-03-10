@@ -8,11 +8,32 @@ import pandas as pd
 
 import subprocess
 
+# Listing possible environments
 cages = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
 
+# Listing trained agent files
+import os
+root_path = 'results'
+path = os.path.join(root_path, 'training')
+
+dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
+
+# Retrieving current dir
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+import shutil
+def delete_files_on_startup():
+    for dir_name in os.listdir(root_path):
+        dir_path = os.path.join(BASE_DIR, root_path, dir_name)
+        if os.path.isdir(dir_path):
+            try:
+                shutil.rmtree(dir_path)
+                print(f'Deleted folder: {dir_path}')
+            except OSError as e:
+                print(f'Error')
+
+# Create train_agent.py subprocess
 def start_training(cage_path):
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
     script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train_agent.py')
@@ -26,9 +47,7 @@ def start_training(cage_path):
     )
 
 import requests, pickle
-
-def ()
-
+# Create evaulate_agent.py subprocess
 def evaluate_agent(cage_path, agent_path):
 
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
@@ -43,6 +62,7 @@ def evaluate_agent(cage_path, agent_path):
       env=env
     )
 
+# Retrieve graph from 'collected_figures'
 def create_graph(idx):
     
     collected_figures = None
@@ -56,18 +76,6 @@ def create_graph(idx):
     fig = collected_figures[idx]
     #print(collected_figures[1])
     return fig
-
-    
-'''
-def create_graph():
-    G = nx.erdos_renyi_graph(n=20, p=0.2)
-
-    # Adicionar peso ou atributo exemplo
-    for node in G.nodes():
-        G.nodes[node]['value'] = random.randint(1, 100)
-
-    return G
-'''
 
 # =========================
 # App Dash
@@ -151,9 +159,9 @@ app.layout = html.Div([
         'display': 'none'}
         ),
 
-    dcc.Button('>', id='start'),  # Ao apertar o botão, o Slider será movimentado automaticamente!
+    dcc.Button('>', id='start'),  # TODO - Ao apertar o botão, o Slider será movimentado automaticamente!
 
-    dcc.Button('||', id='pause'), # pausa!
+    dcc.Button('||', id='pause'), # TODO - pausa!
 
     html.Div(
 
@@ -175,6 +183,11 @@ app.layout = html.Div([
     html.H5('This is a scientific initiation project that uses CybORG research gym')
 
 ])
+
+@app.callback(
+
+)
+def 
 
 @app.callback(
     Output('network-graph', 'figure', allow_duplicate=True),
