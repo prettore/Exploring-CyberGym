@@ -8,19 +8,25 @@ import pandas as pd
 
 import subprocess
 
-# Listing possible environments
-cages = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
-
-# Listing trained agent files
-import os
-root_path = 'results'
-path = os.path.join(root_path, 'training')
-
-dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
-
 # Retrieving current dir
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Listing possible environments
+CAGES = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
+
+# Listing trained agent files
+def list_trained_agents():
+    import os
+    root_path = 'results'
+    path = os.path.join(root_path, 'training')
+
+    agent_files = [f.name for f in os.scandir(root_path) if f.is_dir()]
+    print("Agent file HERE:")
+    print(agent_files)
+    return agent_files
+
+AGENT_FILES = list_trained_agents()
 
 import shutil
 def delete_files_on_startup():
@@ -32,6 +38,9 @@ def delete_files_on_startup():
                 print(f'Deleted folder: {dir_path}')
             except OSError as e:
                 print(f'Error')
+    
+    AGENT_FILES = list_trained_agents()
+        
 
 # Create train_agent.py subprocess
 def start_training(cage_path):
@@ -49,6 +58,8 @@ def start_training(cage_path):
 import requests, pickle
 # Create evaulate_agent.py subprocess
 def evaluate_agent(cage_path, agent_path):
+    root_path = 'results'
+    agent_path = os.path.join(root_path, agent_path)
 
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
     script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'evaluate_agent.py')
@@ -58,7 +69,7 @@ def evaluate_agent(cage_path, agent_path):
     env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
 
     return subprocess.Popen(
-       [python_exec, script_path],
+       [python_exec, script_path, agent_path],
       env=env
     )
 
@@ -87,10 +98,13 @@ app.layout = html.Div([
     html.H2('Choose Cage'),
 
     dcc.Dropdown(
-        cages,
+        CAGES,
         'cage-challenge-1',
-        id='choose-cage'
+        id='choose-cage',
+        style={'margin':'20px 0px'}
     ),
+
+    dcc.Store(id='cage-path', data='None'),
 
     html.P(id='train-loading'),
 
@@ -99,11 +113,13 @@ app.layout = html.Div([
     dcc.Button('Train', id='train', n_clicks=0),
 
     dcc.Dropdown(
-        'agent',
+        AGENT_FILES,
         'cage-challenge-1',
         id='choose-agent',
         style={'margin':'20px 0px'}
     ),
+
+    dcc.Store(id='agent-path', data='None'),
 
     html.Div(id="eval-loading"),
 
@@ -112,8 +128,6 @@ app.layout = html.Div([
     dcc.Button('Evaluate', id='eval', n_clicks=0),
 
     html.P(id='dummy'),
-
-    dcc.Store(id='cage-path', data='None'),
 
     dcc.Store(id="train-running"),
 
@@ -143,7 +157,14 @@ app.layout = html.Div([
     interval=2000,
     n_intervals=0,
     disabled=True
-)
+    ),
+
+    dcc.Interval(
+        id="sleep",
+        interval=1000,
+        n_intervals=0,
+        disabled=True
+    )
 
 ]), html.Div([
 
@@ -185,9 +206,11 @@ app.layout = html.Div([
 ])
 
 @app.callback(
-
+    Output('agent-path', 'data'),
+    Input('choose-agent', 'value')
 )
-def 
+def choose_agent(value):
+    return value
 
 @app.callback(
     Output('network-graph', 'figure', allow_duplicate=True),
@@ -202,6 +225,7 @@ def update_graph(value):
 @app.callback(
     Output('train-loading', 'children'),
     Output('train-poller', 'disabled', allow_duplicate=True),
+    Output('choose-agent','options'),
     Input('train-poller', 'n_intervals'),
     State('train-running', 'data'),
     prevent_initial_call=True
@@ -213,9 +237,11 @@ def check_train(n, running):
         return '', True
 
     if train_process.poll() is None:
-        return 'Training...', False
+        AGENT_FILES = list_trained_agents()
+        return 'Training...', False, AGENT_FILES
 
-    return 'Finished!', True
+    AGENT_FILES = list_trained_agents()
+    return 'Finished!', True, AGENT_FILES
 
 train_process = None
 
@@ -279,15 +305,16 @@ eval_process = None
     Output('slider-container', 'style', allow_duplicate=True),
     Input('eval', 'n_clicks'),
     State('cage-path', 'data'),
+    State('agent-path','data'),
     prevent_initial_call=True
 )
-def eval(n_clicks, data):
+def eval(n_clicks, cage, agent):
 
     global eval_process
     # If it is already training, do nothing
     if eval_process:
         return 'Already evaluating!', False, True, {'display': 'none'}, {'display': 'none'}
-    eval_process = evaluate_agent(data, '')
+    eval_process = evaluate_agent(cage, agent)
     # TODO - Create a way to acess trained agent and choose them
 
     return '', False, True, {'display': 'block'}, {'display': 'block'}
