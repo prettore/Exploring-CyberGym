@@ -12,3 +12,6 @@
 [submodule "Cage1/-f"]
 	path = Cage1/-f
 	url = https://github.com/cage-challenge/cage-challenge-1.git
+[submodule "Cage1/cage-challege-1"]
+	path = Cage1/cage-challege-1
+	url = https://github.com/cage-challenge/cage-challenge-1.git

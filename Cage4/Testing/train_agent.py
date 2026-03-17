@@ -101,9 +101,11 @@ path = os.path.join(root_path, 'training')
 dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
 #max_dir = max(dirs, key=lambda file: file[-1])
 
-max_dir_number = max([file[-1] for file in dirs])
-
-path += str(int(max_dir_number)+1)
+if dirs == []:
+	path += '1'
+else:
+	max_dir_number = max([file[-1] for file in dirs])
+	path += str(int(max_dir_number)+1)
 
 checkpoint_dir = algo.save(path)
 
