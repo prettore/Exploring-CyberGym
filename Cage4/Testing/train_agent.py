@@ -107,6 +107,9 @@ else:
 	max_dir_number = max([file[-1] for file in dirs])
 	path += str(int(max_dir_number)+1)
 
+# Using the right Cage environment folder
+print(os.path.dirname('..'))
+
 checkpoint_dir = algo.save(path)
 
 print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)

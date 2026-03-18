@@ -21,9 +21,13 @@ CAGES = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
 # Listing trained agent files
 def list_trained_agents(cage_path):
 
+    if cage_path == None:
+        return None
     import os
     root_path = 'results' + '_' + cage_path
-    path = os.path.join(root_path, 'training')
+    #path = os.path.join(root_path, 'training')
+
+    os.makedirs(root_path, exist_ok=True)
 
     agent_files = [f.name for f in os.scandir(root_path) if f.is_dir()]
     return agent_files
@@ -216,11 +220,20 @@ app.layout = html.Div([
 #delete_files_on_startup()
 
 @app.callback(
-    Output('agent-path', 'data'),
-    Input('choose-agent', 'value')
+    Output('cage-path', 'data'),
+    Input('choose-cage', 'value'),
 )
-def choose_agent(value):
-    return value
+def choose_cage(cage):
+    AGENT_FILES = list_trained_agents(cage)
+    return cage
+
+@app.callback(
+    Output('agent-path', 'data'),
+    Input('choose-agent', 'value'),
+    prevent_initial_call=True
+)
+def choose_agent(agent):
+    return agent
 
 @app.callback(
     Output('network-graph', 'figure', allow_duplicate=True),
@@ -238,19 +251,20 @@ def update_graph(value):
     Output('choose-agent','options'),
     Input('train-poller', 'n_intervals'),
     State('train-running', 'data'),
+    State('cage-path', 'data'),
     prevent_initial_call=True
 )
-def check_train(n, running):
+def check_train(n, running, cage):
     global train_process
 
     if not running:
         return '', True
 
     if train_process.poll() is None:
-        AGENT_FILES = list_trained_agents()
+        AGENT_FILES = list_trained_agents(cage)
         return 'Training...', False, AGENT_FILES
 
-    AGENT_FILES = list_trained_agents()
+    AGENT_FILES = list_trained_agents(cage)
     return 'Finished!', True, AGENT_FILES
 
 train_process = None
@@ -340,15 +354,6 @@ def eval(n_clicks, cage, agent):
 )
 def clean_eval_warning(n):
     return '', True
-
-@app.callback(
-    Output('cage-path', 'data'),
-    Input('choose-cage', 'value'),
-    prevent_initial_call=True
-)
-def choose_cage(value):
-    AGENT_FILES = list_trained_agents(value)
-    return value
 
 if __name__ == '__main__':
     app.run(debug=True)
