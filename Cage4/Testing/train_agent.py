@@ -13,103 +13,116 @@ from ray.rllib.policy.policy import PolicySpec
 
 import networkx as nx
 import matplotlib.pyplot as plt
+import sys
+def main():
+	if len(sys.argv) > 1:
+		# Argument for creating a results folder with the right name
+		cage_name = sys.argv[1]
 
-def env_creator_CC4(env_config: dict):
-	sg = EnterpriseScenarioGenerator(
-		blue_agent_class=SleepAgent,
-		green_agent_class=EnterpriseGreenAgent,
-		red_agent_class=FiniteStateRedAgent,
-		steps=50
+		def env_creator_CC4(env_config: dict):
+			sg = EnterpriseScenarioGenerator(
+				blue_agent_class=SleepAgent,
+				green_agent_class=EnterpriseGreenAgent,
+				red_agent_class=FiniteStateRedAgent,
+				steps=50
+				)
+			cyborg = CybORG(scenario_generator=sg)
+			env = EnterpriseMAE(env=cyborg, agent_name="blue_agent") 
+
+			return env
+
+		register_env(name="CC4", env_creator=lambda config: env_creator_CC4(config))
+		env = env_creator_CC4({})
+
+		NUM_AGENTS = 5
+		POLICY_MAP = {f"blue_agent_{i}": f"Agent{i}" for i in range(NUM_AGENTS)}
+
+		def policy_mapper(agent_id, episode, worker, **kwargs):
+			return POLICY_MAP[agent_id]
+
+		'''
+		config = (
+			PPOConfig()
+			.environment(env="CC4")
+			.framework("torch")
 		)
-	cyborg = CybORG(scenario_generator=sg)
-	env = EnterpriseMAE(env=cyborg, agent_name="blue_agent") 
+		'''
 
-	return env
+		algo_config = (
 
-register_env(name="CC4", env_creator=lambda config: env_creator_CC4(config))
-env = env_creator_CC4({})
+			PPOConfig()
 
-NUM_AGENTS = 5
-POLICY_MAP = {f"blue_agent_{i}": f"Agent{i}" for i in range(NUM_AGENTS)}
+			.environment(env="CC4")
 
-def policy_mapper(agent_id, episode, worker, **kwargs):
-	return POLICY_MAP[agent_id]
+			.training(
+				lr=0.0001, # learning rate
+				# gamma=0.995, # discount factor
+				# DQN -> e greedy?
+				train_batch_size=200
+				)
 
-'''
-config = (
-	PPOConfig()
-	.environment(env="CC4")
-	.framework("torch")
-)
-'''
+			.debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
 
-algo_config = (
+			.multi_agent(
 
-	PPOConfig()
+			policies={
 
-	.environment(env="CC4")
+				ray_agent: PolicySpec(
+					policy_class=None,
+					observation_space=env.observation_space(cyborg_agent),
+					action_space=env.action_space(cyborg_agent),
+					config={"gamma": 0.85},
+					) for cyborg_agent, ray_agent in POLICY_MAP.items()
 
-	.training(
-		lr=0.0001, # learning rate
-		# gamma=0.995, # discount factor
-		# DQN -> e greedy?
-		train_batch_size=200
+					},
+			policy_mapping_fn=policy_mapper
+
+			)
+
+			.env_runners(
+				num_env_runners=1, 
+				rollout_fragment_length=50, # optional
+				# gym_env_vectorize_mode
+				# num_cpus_per_env_runner
+				# num_gpus_per_env_runner
+				) 
+
 		)
 
-	.debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
+		algo = algo_config.build()
 
-	.multi_agent(
+		steps = 1
+		for i in range(steps):
+			
+			print('DEBUG')
+			print('training step', i)
 
-	policies={
+			algo.train()
 
-		ray_agent: PolicySpec(
-			policy_class=None,
-			observation_space=env.observation_space(cyborg_agent),
-			action_space=env.action_space(cyborg_agent),
-			config={"gamma": 0.85},
-			) for cyborg_agent, ray_agent in POLICY_MAP.items()
+		import os
+		root_path = 'results'
 
-			},
-	policy_mapping_fn=policy_mapper
+		# Creating root path (e.g. results_Cage4)
+		root_path = root_path + '_' + cage_name
+		os.makedirs(root_path, exist_ok=True)
+		print(root_path)
 
-	)
+		# Creating list of current trainings on results_Cage4
+		dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
+		print(dirs)
+		#max_dir = max(dirs, key=lambda file: file[-1])
 
-	.env_runners(
-		num_env_runners=1, 
-		rollout_fragment_length=50, # optional
-		# gym_env_vectorize_mode
-		# num_cpus_per_env_runner
-		# num_gpus_per_env_runner
-		) 
+		path = os.path.join(root_path, 'training')
+		print(path)
+		if dirs == []:
+			path += '1'
+		else:
+			max_dir_number = max([file[-1] for file in dirs])
+			path += str(int(max_dir_number)+1)
 
-)
+		checkpoint_dir = algo.save(path)
 
-algo = algo_config.build()
+		print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
 
-steps = 1
-for i in range(steps):
-	
-	print('DEBUG')
-	print('training step', i)
 
-	algo.train()
-
-import os
-root_path = 'results'
-path = os.path.join(root_path, 'training')
-
-dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
-#max_dir = max(dirs, key=lambda file: file[-1])
-
-if dirs == []:
-	path += '1'
-else:
-	max_dir_number = max([file[-1] for file in dirs])
-	path += str(int(max_dir_number)+1)
-
-# Using the right Cage environment folder
-print(os.path.dirname('..'))
-
-checkpoint_dir = algo.save(path)
-
-print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
+main()

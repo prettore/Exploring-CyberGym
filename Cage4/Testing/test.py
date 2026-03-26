@@ -1,11 +1,29 @@
 import os
-root_path = 'results'
-path = os.path.join(root_path, 'training')
+os.environ["PYTHONWARNINGS"] = "ignore"
 
-dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
+from CybORG import CybORG
+from VisualiseRedExpansionMod import VisualiseRedExpansionMod
+from CybORG.Simulator.Scenarios import EnterpriseScenarioGenerator
+from CybORG.Agents.Wrappers import EnterpriseMAE
+from CybORG.Agents import SleepAgent, EnterpriseGreenAgent, FiniteStateRedAgent
 
-#max_dir = max(dirs, key=lambda file: file[-1])
+from ray.rllib.algorithms.algorithm import Algorithm
+from ray.tune.registry import register_env
 
-#max_dir = max([file[-1] for file in dirs])
 
-print(dirs)
+def env_creator_CC4(env_config: dict):
+
+	sg = EnterpriseScenarioGenerator(
+		blue_agent_class=SleepAgent,
+		green_agent_class=EnterpriseGreenAgent,
+		red_agent_class=FiniteStateRedAgent,
+		steps=50
+		)
+	cyborg = CybORG(scenario_generator=sg)
+	mae = EnterpriseMAE(env=cyborg, agent_name='blue_agent') 
+
+	return mae
+
+mae = env_creator_CC4({})
+
+print(help(mae.env))

@@ -18,10 +18,19 @@ import plotly.graph_objects as go
 from networkx.readwrite import json_graph
 
 class VisualiseRedExpansionMod():
+    """
+        This is a slightly modified version of the CybORG class VisualizeRedExpansion.
+        It is intended to be usable on wrapped cyborg class. (e.g. EnterpriseMAE)
+    """
+
     """Visualisation wrapper that displays the user and root shells acquired by red agents over time, in a series of network graph plots. 
     
     Attributes
     ----------
+    actions:
+
+    obs:
+
     fig : matplotlib.pyplot.figure.Figure (plotly.go.figure)
         graph figure
     ax : matplotlib.pyplot.axes.Axes ()
@@ -74,6 +83,10 @@ class VisualiseRedExpansionMod():
         initial_network_info['network_map'] = env_netmap
         self.collected_networks.append(initial_network_info)
 
+        # New attributes for keeping the actions and cyborg observations
+        self.all_actions = []
+        self.all_obs = {}
+
     def run(self):
         """Automating the running of the visualisation, with visualising each step then outputting the graph."""
         for step in range(self.total_steps):
@@ -93,13 +106,23 @@ class VisualiseRedExpansionMod():
         host_nodes_compromised, red_agents = self._get_compromised_nodes()
         all_session_agents, all_host_sessions, agent_label_mapping, red_root_nodes = self._get_compromised_edges()
         
+        actions = {}
+
+        for agent in self.env.team['Red'] + self.env.team['Blue']:
+            try:
+                actions[agent] = self.env.get_last_action(agent)[0].__class__.__name__
+            except Exception as err:
+                print("AN ERROR OCURRED: ", err)
+                actions[agent] = None
+
+        self.all_actions.append(actions)
+
         known_red_agents = self.collected_networks[-1]['active_agents']['red']
         if len(all_session_agents['red'])>len(known_red_agents):
             new_network = self.collected_networks[-1]['network_map'].copy()
             for new_red in all_session_agents['red']:
                 if new_red not in known_red_agents:
                     new_network.add_node(new_red)
-
 
             new_network_info = {
                 'network_map' : new_network,
@@ -145,24 +168,36 @@ class VisualiseRedExpansionMod():
     def _btn_pause(self, ev):
         self.play_view_flag = False
 
-    def get_figures(self, init:bool = False):
+    def get_figures(self, init: bool = False):
         import copy
-        collected_networks = copy.copy(self.collected_networks)
-        for idx, G in enumerate(collected_networks):
 
-            G = G['network_map']
-            pos = nx.spring_layout(G, seed=42)
-                
+        collected_networks = copy.copy(self.collected_networks)
+
+        figures = []
+
+        # usa posições fixas calculadas no init
+        pos = dict(self.pos)
+
+        for idx, G_dict in enumerate(collected_networks):
+
+            G = G_dict['network_map']
+
+            # garante posição para novos nós
+            for n in G.nodes():
+                if n not in pos:
+                    pos[n] = np.random.rand(2)
+
             traces = []
-            figures = []
 
             # ======================
             # EDGES
             # ======================
-
+                
             def make_edges(edgelist, dash=None):
                 edge_x, edge_y = [], []
                 for u, v in edgelist:
+                    if u not in pos or v not in pos:
+                        continue
                     x0, y0 = pos[u]
                     x1, y1 = pos[v]
                     edge_x += [x0, x1, None]
@@ -173,18 +208,22 @@ class VisualiseRedExpansionMod():
                     y=edge_y,
                     mode='lines',
                     line=dict(width=1, dash=dash),
-                    hoverinfo='none'
+                    hoverinfo='none',
+                    showlegend=False  # added
                 )
 
-            traces.append(make_edges(self.host_interfaces))                     # normal
-            traces.append(make_edges(collected_networks[idx]['host_sessions'], dash='dot'))   # estilo ':'
+            # fixed edges of the network
+            traces.append(make_edges(self.host_interfaces))
+
+            # sessions (dotted line)
+            traces.append(make_edges(G_dict['host_sessions'], dash='dot'))
 
             # ======================
             # NODES
             # ======================
 
-            def make_nodes(nodelist, color, symbol, size=200, alpha=1, text=None):
-                x, y, labels = [], [], []
+            def make_nodes(nodelist, color, symbol, size=200, alpha=1):
+                x, y = [], []
 
                 for n in nodelist:
                     if n not in pos:
@@ -192,24 +231,22 @@ class VisualiseRedExpansionMod():
                     xi, yi = pos[n]
                     x.append(xi)
                     y.append(yi)
-                    labels.append(text[n] if text and n in text else str(n))
 
                 return go.Scatter(
                     x=x,
                     y=y,
-                    mode='markers+text',
-                    text=labels,
-                    textposition="top center",
+                    mode='markers',
                     marker=dict(
-                        size=size/20,   # plotly usa escala diferente
+                        size=size / 20,
                         color=color,
                         symbol=symbol,
                         opacity=alpha
-                    )
+                    ),
+                    hoverinfo='none',
+                    showlegend=False # added
                 )
-
             # ======================
-            # TIPOS DE HOST
+            # HOST TYPES
             # ======================
 
             traces.append(make_nodes(self.host_nodes['users'], '#C0C0C0', 'circle'))
@@ -217,32 +254,97 @@ class VisualiseRedExpansionMod():
             traces.append(make_nodes(self.host_nodes['other'], '#C0C0C0', 'hexagon'))
 
             # ======================
-            # AGENTES
+            # AGENTS
             # ======================
 
-            traces.append(make_nodes(collected_networks[idx]['active_agents']['red'], '#EE4B2B', 'triangle-up'))
-            traces.append(make_nodes(collected_networks[idx]['active_agents']['blue'], '#0096FF', 'triangle-up'))
+            traces.append(make_nodes(G_dict['active_agents']['red'], '#EE4B2B', 'triangle-up'))
+            traces.append(make_nodes(G_dict['active_agents']['blue'], '#0096FF', 'triangle-up'))
 
             # ======================
-            # ESTADOS
+            # STATES
             # ======================
 
-            traces.append(make_nodes(collected_networks[idx]['compromised_hosts'], '#FFA500', 'circle', alpha=0.8))
-            traces.append(make_nodes(collected_networks[idx]['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8))
+            traces.append(make_nodes(G_dict['compromised_hosts'], '#FFA500', 'circle', alpha=0.8))
+            traces.append(make_nodes(G_dict['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8))
 
             # ======================
-            # FIGURE
+            # FIGURES
             # ======================
 
-            fig = go.Figure(data=traces)
+            legend_traces = [
+
+                # Hosts
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#C0C0C0', symbol='circle'),
+                    name='User Hosts',
+                    showlegend=True
+                ),
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#C0C0C0', symbol='square'),
+                    name='Servers',
+                    showlegend=True
+                ),
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#C0C0C0', symbol='hexagon'),
+                    name='Other Hosts',
+                    showlegend=True
+                ),
+
+                # Agents
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#EE4B2B', symbol='triangle-up'),
+                    name='Red Agent',
+                    showlegend=True
+                ),
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#0096FF', symbol='triangle-up'),
+                    name='Blue Agent',
+                    showlegend=True
+                ),
+
+                # States
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#FFA500', symbol='circle'),
+                    name='Compromised Host',
+                    showlegend=True
+                ),
+                go.Scatter(
+                    x=[None], y=[None],
+                    mode='markers',
+                    marker=dict(size=10, color='#EE4B2B', symbol='circle'),
+                    name='Root Access',
+                    showlegend=True
+                ),
+            ]
+
+            fig = go.Figure(data=traces + legend_traces)
 
             fig.update_layout(
-                showlegend=False,
+                showlegend=True,
+                legend=dict(
+                    x=1.02,   # right side
+                    y=1,
+                    xanchor='left',
+                    yanchor='top'
+                ),
                 xaxis=dict(showgrid=False, zeroline=False, visible=False),
                 yaxis=dict(showgrid=False, zeroline=False, visible=False)
             )
 
             figures.append(fig)
+            print('FIGURE', idx, 'ADDED')
 
         return figures
 
@@ -415,4 +517,3 @@ class VisualiseRedExpansionMod():
                 positions[red_agent_name] = np.array(combined_subnet_hosts).mean(axis=0)*1.15
 
         return positions
-        

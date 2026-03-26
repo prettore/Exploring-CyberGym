@@ -10,6 +10,7 @@ from ray.tune.registry import register_env
 import networkx as nx
 import sys
 
+# Function for crating EnterpriseMAE scenario
 def env_creator_CC4(env_config: dict):
 
 	sg = EnterpriseScenarioGenerator(
@@ -25,6 +26,8 @@ def env_creator_CC4(env_config: dict):
 
 def main():
 	if len(sys.argv) > 1:
+		agent_path = sys.argv[1]
+
 		register_env(name='CC4', env_creator=lambda config: env_creator_CC4(config))
 		mae = env_creator_CC4({})
 
@@ -41,7 +44,6 @@ def main():
 		import os
 		base_dir = os.path.abspath('.')
 
-		agent_path = sys.argv[1]
 		# Retrieving the agent
 		checkpoint_path = os.path.join(base_dir, agent_path)
 		algo = Algorithm.from_checkpoint(checkpoint_path)
@@ -49,9 +51,10 @@ def main():
 		steps = 50
 		total = {}
 
+
 		visualise = VisualiseRedExpansionMod(mae.env, steps)
 
-		for i in range(5):
+		for i in range(steps):
 
 			print('DEBUG')
 			print('evaluation step', i)
@@ -76,6 +79,13 @@ def main():
 		#G[idx]['agent_label_mapping']
 		collected_figures = visualise.get_figures()
 
+		actions = visualise.all_actions
+
+		with open('actions.pkl', 'wb') as f:
+			pickle.dump(actions, f)
+
+		collected_figures[1]
+
 		with open('graph.pkl', 'wb') as f:
 			pickle.dump(collected_figures, f)
 
@@ -84,5 +94,5 @@ def main():
 	else:
 		print('Error on loading agent file - evaluate_agent.py')
 
-if __name__ == '__main__':
-	main()
+
+main()

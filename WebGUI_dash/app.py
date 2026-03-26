@@ -48,21 +48,23 @@ def delete_files_on_startup():
         
 # Create train_agent.py subprocess
 def start_training(cage_path):
+    # Specifying python path enables usage of the specific
     python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
     script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train_agent.py')
 
+    # Insert cage on python path, for it isn't a pip package
     env = os.environ.copy()
     env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
 
     return subprocess.Popen(
-        [python_exec, script_path],
+        [python_exec, script_path, cage_path],
       env=env
     )
 
 import requests, pickle
 # Create evaulate_agent.py subprocess
 def evaluate_agent(cage_path, agent_path):
-    root_path = 'results'
+    root_path = 'results' + '_' + cage_path
     agent_path = os.path.join(root_path, agent_path)
 
     print(agent_path)
@@ -94,9 +96,18 @@ def create_graph(idx):
     #print(collected_figures[1])
     return fig
 
-# =========================
+def get_actions():
+    actions = {}
+    try:
+        with open('actions.pkl', 'rb') as f:
+           actions = pickle.load(f)
+    except FileNotFoundError:
+        print('File not found!')
+        return None
+
+    return actions
+
 # App Dash
-# =========================
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -197,12 +208,18 @@ app.layout = html.Div([
     ),
 
     html.Div(
+        #dcc.Button('^', id='show_actions')
+    ),
+
+    html.P(id='actions', style={'display': 'block'}),
+
+    html.Div(
 
     id='slider-container',
     children=[
         dcc.Slider(
             0,
-            5,
+            50,
             value=0,
             id='network-slider'
             )
@@ -235,14 +252,22 @@ def choose_cage(cage):
 def choose_agent(agent):
     return agent
 
+from pprint import pprint
 @app.callback(
     Output('network-graph', 'figure', allow_duplicate=True),
+    Output('actions', 'children'),
     Input('network-slider', 'value'),
     prevent_initial_call=True
 )
 def update_graph(value):
     fig = create_graph(value)
-    return fig
+
+    all_actions = get_actions()
+    actions = all_actions[value]
+
+    return fig, html.Div([
+        html.Div(f"{agent}: {action}") for agent, action in actions.items()
+    ]) 
 
 # Callback for checking if the training is complete
 @app.callback(
@@ -261,11 +286,11 @@ def check_train(n, running, cage):
         return '', True
 
     if train_process.poll() is None:
-        AGENT_FILES = list_trained_agents(cage)
-        return 'Training...', False, AGENT_FILES
+        agent_files = list_trained_agents(cage)
+        return 'Training...', False, agent_files
 
-    AGENT_FILES = list_trained_agents(cage)
-    return 'Finished!', True, AGENT_FILES
+    agent_files = list_trained_agents(cage)
+    return 'Finished!', True, agent_files
 
 train_process = None
 
@@ -354,6 +379,18 @@ def eval(n_clicks, cage, agent):
 )
 def clean_eval_warning(n):
     return '', True
+
+@app.callback(
+    Output('choose-agent', 'options', allow_duplicate=True),
+    Input('choose-cage', 'value'),
+    prevent_initial_call=True
+)
+def update_agent_dropdown(cage):
+    if cage is None:
+        return []
+
+    agent_files = list_trained_agents(cage)
+    return agent_files
 
 if __name__ == '__main__':
     app.run(debug=True)
