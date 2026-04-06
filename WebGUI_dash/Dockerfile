@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 COPY . .
 
 # install dependencies FROM the submodule
-RUN pip install --no-cache-dir -r Requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 
+EXPOSE 8050
+
+RUN useradd app
+USER app
+
+CMD ["python", "app.py"]

@@ -1,12 +1,19 @@
-results/
-logs/
-
 # CybORG files
 Default/CybORG/
 Cage1/cage-challenge-1/
 Cage2/cage-challenge-2/
 Cage3/cage-challenge-3/
 Cage4/cage-challenge-4/
+
+.python-version
+actions.pkl
+graph.pkl
+
+# Results files
+results*/
+
+# Logs
+logs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

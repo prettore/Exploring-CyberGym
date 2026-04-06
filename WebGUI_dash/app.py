@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENT_FILES = ()
 
 # Listing possible environments
-CAGES = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
+CAGES = ('Cage4')
 
 # Listing trained agent files
 def list_trained_agents(cage_path):
@@ -24,7 +24,9 @@ def list_trained_agents(cage_path):
     if cage_path == None:
         return None
     import os
-    root_path = 'results' + '_' + cage_path
+	
+    root_path = "results"
+    root_path = os.path.join(root_path, cage_path)
     #path = os.path.join(root_path, 'training')
 
     os.makedirs(root_path, exist_ok=True)
@@ -36,7 +38,8 @@ import shutil
 def delete_files_on_startup():
     
     for cage in CAGES:
-        root_path = 'results' + '_' + cage
+        root_path = 'results'
+        root_path = os.path.join(root_path, cage)
 
         for dir_name in os.listdir(root_path):
             dir_path = os.path.join(BASE_DIR, root_path, dir_name)
@@ -392,5 +395,6 @@ def update_agent_dropdown(cage):
     agent_files = list_trained_agents(cage)
     return agent_files
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app = dash.Dash(__name__)
+
+app.run(debug=True, port=8050)

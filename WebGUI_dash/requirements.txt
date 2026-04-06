@@ -2,3 +2,5 @@ dash
 networkx
 plotly
 numpy
+pandas
+tensorboard
