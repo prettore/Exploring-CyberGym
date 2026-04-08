@@ -4,10 +4,13 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# copy your repo (without heavy submodule content)
+# isso evita ele baixar os requirements dnv ao mudar o app.py
+COPY requirements.txt . 
+
+RUN pip install --no-cache-dir -r requirements.txt 
+#
 COPY . .
 
-# install dependencies FROM the submodule
-RUN pip install --no-cache-dir -r Requirements.txt
+EXPOSE 8050
 
-EXPOSE 
+CMD ["python", "app.py"]

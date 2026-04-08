@@ -61,7 +61,10 @@ def main():
 				train_batch_size=200
 				)
 
-			.debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
+			.debugging(logger_config={
+					"logdir": "/app/logs/PPO_Example", 
+					"type": "ray.tune.logger.TBXLogger"
+			})
 
 			.multi_agent(
 
@@ -100,10 +103,10 @@ def main():
 			algo.train()
 
 		import os
-		root_path = 'results'
+		
 
 		# Creating root path (e.g. results_Cage4)
-		root_path = root_path + '_' + cage_name
+		root_path = os.path.join('/app', f'results_{cage_name}')
 		os.makedirs(root_path, exist_ok=True)
 		print(root_path)
 

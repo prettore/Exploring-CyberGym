@@ -5,6 +5,7 @@ import networkx as nx
 import plotly.graph_objs as go
 import random
 import pandas as pd
+import docker
 
 import subprocess
 
@@ -20,17 +21,21 @@ CAGES = ('Cage1', 'Cage2', 'Cage3', 'Cage4')
 
 # Listing trained agent files
 def list_trained_agents(cage_path):
-
-    if cage_path == None:
-        return None
-    import os
-    root_path = 'results' + '_' + cage_path
-    #path = os.path.join(root_path, 'training')
+    if cage_path is None:
+        return [] 
+    
+    root_path = os.path.join('/app', f'results_{cage_path}')
 
     os.makedirs(root_path, exist_ok=True)
-
-    agent_files = [f.name for f in os.scandir(root_path) if f.is_dir()]
-    return agent_files
+    
+    try:
+        agent_files = [f.name for f in os.scandir(root_path) if f.is_dir()]
+        # Ordena para que o treino mais novo ou mais antigo tenha ordem lógica
+        agent_files.sort() 
+        return agent_files
+    except Exception as e:
+        print(f"Erro ao listar agentes: {e}")
+        return []
 
 import shutil
 def delete_files_on_startup():
@@ -47,19 +52,29 @@ def delete_files_on_startup():
                     print(f'Error on deleting File')
         
 # Create train_agent.py subprocess
+client = docker.from_env()
+
 def start_training(cage_path):
-    # Specifying python path enables usage of the specific
-    python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
-    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train_agent.py')
+    image_name = f"gabriel870/{cage_path.lower()}:latest"
 
-    # Insert cage on python path, for it isn't a pip package
-    env = os.environ.copy()
-    env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
+    container = client.containers.run(
+        image=image_name,
 
-    return subprocess.Popen(
-        [python_exec, script_path, cage_path],
-      env=env
+        command=f"python -u Testing/train_agent.py {cage_path}",
+        
+        volumes={
+            'cybergym_data': {'bind': '/app', 'mode': 'rw'}
+        },
+        
+        working_dir="/app", # O diretório onde a imagem espera rodar
+        environment={
+            "PYTHONUNBUFFERED": "1"
+        },
+        auto_remove=True,
+        detach=True
     )
+
+    return container
 
 import requests, pickle
 # Create evaulate_agent.py subprocess
@@ -282,15 +297,24 @@ def update_graph(value):
 def check_train(n, running, cage):
     global train_process
 
-    if not running:
-        return '', True
+    if not running or train_process is None:
+        return '', True, list_trained_agents(cage)
 
-    if train_process.poll() is None:
-        agent_files = list_trained_agents(cage)
-        return 'Training...', False, agent_files
+    try:
+        train_process.reload()
+        
+        if train_process.status == 'running':
+            return 'Training...', False, list_trained_agents(cage)
+        
+        return 'Finished!', True, list_trained_agents(cage)
 
-    agent_files = list_trained_agents(cage)
-    return 'Finished!', True, agent_files
+    except docker.errors.NotFound: #erro
+        print("DEBUG: Container não encontrado (auto-removido). Treino concluído.")
+        return 'Finished!', True, list_trained_agents(cage)
+        
+    except Exception as e:
+        # Outros erros (ex: socket do Docker caiu)
+        return f'Error: {str(e)}', True, list_trained_agents(cage)
 
 train_process = None
 
@@ -393,4 +417,4 @@ def update_agent_dropdown(cage):
     return agent_files
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8050, debug=True)
