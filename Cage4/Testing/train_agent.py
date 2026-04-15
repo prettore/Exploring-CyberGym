@@ -103,7 +103,7 @@ def main():
 		root_path = 'results'
 
 		# Creating root path (e.g. results_Cage4)
-		root_path = root_path + '_' + cage_name
+		root_path = os.path.join(root_path, cage_name)
 		os.makedirs(root_path, exist_ok=True)
 		print(root_path)
 

@@ -118,6 +118,7 @@ class VisualiseRedExpansionMod():
         self.all_actions.append(actions)
 
         known_red_agents = self.collected_networks[-1]['active_agents']['red']
+
         if len(all_session_agents['red'])>len(known_red_agents):
             new_network = self.collected_networks[-1]['network_map'].copy()
             for new_red in all_session_agents['red']:
@@ -470,7 +471,7 @@ class VisualiseRedExpansionMod():
 
         # Duplicates are removed from lists
         all_session_agents["blue"] = list(set(all_session_agents["blue"]))
-        all_session_agents["red"] = list(set(all_session_agents["red"]))
+        all_session_agents["red"] = list(set(all_session_agents["1"]))
 
         info = {
             'active_agents' : all_session_agents,

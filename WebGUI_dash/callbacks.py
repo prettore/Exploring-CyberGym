@@ -1,4 +1,5 @@
 from dash.dependencies import Input, Output, State
+from dash import html, dcc
 import plotly.graph_objs as go
 from app import app
 import subprocess
@@ -10,8 +11,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Listing possible environments
 CAGES = ('Cage4')
-
-AGENT_FILES
 
 # Listing trained agent files
 def list_trained_agents(cage_path):
@@ -42,7 +41,7 @@ def delete_files_on_startup():
                 try:
                     shutil.rmtree(dir_path)
                 except OSError as e:
-                    print(f'Error on deleting File')
+                    print(f'Error on deleting File: {e}')
         
 # Create train_agent.py subprocess
 def start_training(cage_path):
@@ -84,7 +83,7 @@ def create_graph(idx):
     
     collected_figures = None
     try:
-        with open('graph.pkl', 'rb') as f:
+        with open(os.path.join(BASE_DIR, 'graph.pkl'), 'rb') as f:
            collected_figures = pickle.load(f)
     except FileNotFoundError:
         print('File not found!')
@@ -97,7 +96,7 @@ def create_graph(idx):
 def get_actions():
     actions = {}
     try:
-        with open('actions.pkl', 'rb') as f:
+        with open(os.path.join(BASE_DIR, 'actions.pkl'), 'rb') as f:
            actions = pickle.load(f)
     except FileNotFoundError:
         print('File not found!')

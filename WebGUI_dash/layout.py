@@ -12,7 +12,6 @@ layout = html.Div([
 
     dcc.Dropdown(
         options = CAGES,
-        value = 'Cage4',
         id='choose-cage',
         style={'margin':'20px 0px'}
     ),

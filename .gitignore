@@ -4,6 +4,7 @@
 #Cage2/cage-challenge-2/
 #Cage3/cage-challenge-3/
 #Cage4/cage-challenge-4/
+.python-version
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

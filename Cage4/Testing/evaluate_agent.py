@@ -81,12 +81,14 @@ def main():
 
 		actions = visualise.all_actions
 
-		with open('actions.pkl', 'wb') as f:
+		script_dir = os.path.dirname(os.path.abspath(__file__))
+		webgui_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'WebGUI_dash'))
+		os.makedirs(webgui_dir, exist_ok=True)
+		
+		with open(os.path.join(webgui_dir, 'actions.pkl'), 'wb') as f:
 			pickle.dump(actions, f)
 
-		collected_figures[1]
-
-		with open('graph.pkl', 'wb') as f:
+		with open(os.path.join(webgui_dir, 'graph.pkl'), 'wb') as f:
 			pickle.dump(collected_figures, f)
 
 		# TODO - CRIAR VISUALIZAÇÃO DE RECOMPENSAS
