@@ -13,11 +13,27 @@ from ray.rllib.policy.policy import PolicySpec
 
 import networkx as nx
 import matplotlib.pyplot as plt
-import sys
+import argparse
+import os
+import pickle
 def main():
-	if len(sys.argv) > 1:
-		# Argument for creating a results folder with the right name
-		cage_name = sys.argv[1]
+	parser = argparse.ArgumentParser()
+	parser.add_argument("cage_name", type=str)
+	parser.add_argument("--steps", type=int, default=1)
+	parser.add_argument("--lr", type=float, default=0.0001)
+	parser.add_argument("--batch_size", type=int, default=200)
+	
+	args, _ = parser.parse_known_args()
+	
+	if True:
+		cage_name = args.cage_name
+		steps_param = args.steps
+		lr_param = args.lr
+		batch_size_param = args.batch_size
+
+		webgui_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'WebGUI_dash'))
+		live_train_path = os.path.join(webgui_dir, 'live_train.pkl')
+		live_metrics = {'steps': [], 'rewards': []}
 
 		def env_creator_CC4(env_config: dict):
 			sg = EnterpriseScenarioGenerator(
@@ -55,10 +71,10 @@ def main():
 			.environment(env="CC4")
 
 			.training(
-				lr=0.0001, # learning rate
+				lr=lr_param, # learning rate
 				# gamma=0.995, # discount factor
 				# DQN -> e greedy?
-				train_batch_size=200
+				train_batch_size=batch_size_param
 				)
 
 			.debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
@@ -91,29 +107,37 @@ def main():
 
 		algo = algo_config.build()
 
-		steps = 1
-		for i in range(steps):
+		for i in range(steps_param):
 			
-			print('DEBUG')
-			print('training step', i)
+			# print(f"[DEBUG] Training step {i}")
 
-			algo.train()
+			results = algo.train()
+			
+			live_metrics['steps'].append(i)
+			mean_reward = results.get('episode_reward_mean')
+			if mean_reward is None and 'env_runners' in results:
+				mean_reward = results['env_runners'].get('episode_reward_mean', 0)
+			if mean_reward is None:
+				mean_reward = 0
+				
+			live_metrics['rewards'].append(mean_reward)
+			with open(live_train_path, 'wb') as f:
+				pickle.dump(live_metrics, f)
 
-		import os
 		root_path = 'results'
 
 		# Creating root path (e.g. results_Cage4)
 		root_path = os.path.join(root_path, cage_name)
 		os.makedirs(root_path, exist_ok=True)
-		print(root_path)
+		# print(f"[DEBUG] Root path: {root_path}")
 
 		# Creating list of current trainings on results_Cage4
 		dirs = [f.name for f in os.scandir(root_path) if f.is_dir()]
-		print(dirs)
+		# print(f"[DEBUG] Directories: {dirs}")
 		#max_dir = max(dirs, key=lambda file: file[-1])
 
 		path = os.path.join(root_path, 'training')
-		print(path)
+		# print(f"[DEBUG] Path: {path}")
 		if dirs == []:
 			path += '1'
 		else:
@@ -122,7 +146,7 @@ def main():
 
 		checkpoint_dir = algo.save(path)
 
-		print("Checkpoint saved at:", checkpoint_dir.checkpoint.path)
+		# print(f"[DEBUG] Checkpoint saved at: {checkpoint_dir.checkpoint.path}")
 
 
 main()

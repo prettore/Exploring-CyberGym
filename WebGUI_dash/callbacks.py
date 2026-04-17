@@ -5,104 +5,16 @@ from app import app
 import subprocess
 
 
-# Retrieving current dir
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Listing possible environments
-CAGES = ('Cage4')
-
-# Listing trained agent files
-def list_trained_agents(cage_path):
-
-    if cage_path == None:
-        return None
-    import os
-	
-    root_path = "results"
-    root_path = os.path.join(root_path, cage_path)
-    #path = os.path.join(root_path, 'training')
-
-    os.makedirs(root_path, exist_ok=True)
-
-    agent_files = [f.name for f in os.scandir(root_path) if f.is_dir()]
-    return agent_files
-
-import shutil
-def delete_files_on_startup():
-    
-    for cage in CAGES:
-        root_path = 'results'
-        root_path = os.path.join(root_path, cage)
-
-        for dir_name in os.listdir(root_path):
-            dir_path = os.path.join(BASE_DIR, root_path, dir_name)
-            if os.path.isdir(dir_path):
-                try:
-                    shutil.rmtree(dir_path)
-                except OSError as e:
-                    print(f'Error on deleting File: {e}')
-        
-# Create train_agent.py subprocess
-def start_training(cage_path):
-    # Specifying python path enables usage of the specific
-    python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
-    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'train_agent.py')
-
-    # Insert cage on python path, for it isn't a pip package
-    env = os.environ.copy()
-    env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
-
-    return subprocess.Popen(
-        [python_exec, script_path, cage_path],
-      env=env
-    )
-
-import requests, pickle
-# Create evaulate_agent.py subprocess
-def evaluate_agent(cage_path, agent_path):
-    root_path = 'results'
-    agent_path = os.path.join(root_path, cage_path, agent_path)
-
-    print(agent_path)
-
-    python_exec = os.path.join(BASE_DIR, '..', cage_path, '.venv', 'bin', 'python')
-    script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'evaluate_agent.py')
-    # TODO - Create a way to choose the agent file
-
-    env = os.environ.copy()
-    env['PYTHONPATH'] = '/home/gabriel/Exploring-CyberGym/Cage4/cage-challenge-4'
-
-    return subprocess.Popen(
-       [python_exec, script_path, agent_path],
-      env=env
-    )
-
-# Retrieve graph from 'collected_figures'
-def create_graph(idx):
-    
-    collected_figures = None
-    try:
-        with open(os.path.join(BASE_DIR, 'graph.pkl'), 'rb') as f:
-           collected_figures = pickle.load(f)
-    except FileNotFoundError:
-        print('File not found!')
-        return None
-
-    fig = collected_figures[idx]
-    #print(collected_figures[1])
-    return fig
-
-def get_actions():
-    actions = {}
-    try:
-        with open(os.path.join(BASE_DIR, 'actions.pkl'), 'rb') as f:
-           actions = pickle.load(f)
-    except FileNotFoundError:
-        print('File not found!')
-        return None
-
-    return actions
+from utils import (
+    list_trained_agents,
+    delete_files_on_startup,
+    start_training,
+    evaluate_agent,
+    create_graph,
+    get_actions,
+    get_rewards,
+    get_live_metrics
+)
 
 @app.callback(
     Output('cage-path', 'data'),
@@ -123,6 +35,7 @@ def choose_agent(agent):
 from pprint import pprint
 @app.callback(
     Output('network-graph', 'figure', allow_duplicate=True),
+    Output('rewards-graph', 'figure', allow_duplicate=True),
     Output('actions', 'children'),
     Input('network-slider', 'value'),
     prevent_initial_call=True
@@ -131,9 +44,29 @@ def update_graph(value):
     fig = create_graph(value)
 
     all_actions = get_actions()
-    actions = all_actions[value]
+    actions = all_actions[value] if all_actions else {}
 
-    return fig, html.Div([
+    rewards = get_rewards()
+    reward_fig = go.Figure()
+
+    if rewards:
+        for agent_id, history in rewards.items():
+            reward_fig.add_trace(go.Scatter(
+                x=list(range(len(history))),
+                y=history, # type: ignore
+                mode='lines+markers',
+                name=agent_id
+            ))
+        reward_fig.add_vline(x=value, line_dash="dash", line_color="black")
+        
+        reward_fig.update_layout(
+            title="Cumulative Rewards",
+            xaxis_title="Step",
+            yaxis_title="Reward",
+            margin=dict(l=40, r=40, t=40, b=40)
+        )
+
+    return fig, reward_fig, html.Div([
         html.Div(f"{agent}: {action}") for agent, action in actions.items()
     ]) 
 
@@ -176,11 +109,15 @@ def clean_train_warning(n):
     Output('train-warning-clear', 'disabled', allow_duplicate=True),
     Output('train-poller', 'disabled', allow_duplicate=True),
     Output('train-running', 'data'),
+    Output('live-train-graph', 'style', allow_duplicate=True),
     Input('train', 'n_clicks'),
     State('cage-path', 'data'),
+    State('train-steps', 'value'),
+    State('train-lr', 'value'),
+    State('train-batch', 'value'),
     prevent_initial_call=True
 )
-def train(n_clicks, data):
+def train(n_clicks, data, steps, lr, batch_size):
 
     if data == None:
         return 'Choose a Cage first!', False, True, False
@@ -188,9 +125,35 @@ def train(n_clicks, data):
     global train_process
     # If it is already training, do nothing
     if train_process and train_process.poll() is None:
-        return 'Already training!', False, False, True
-    train_process = start_training(data)
-    return '', True, False, True
+        return 'Already training!', False, False, True, {'display': 'block'}
+    train_process = start_training(data, steps, lr, batch_size)
+    return '', True, False, True, {'display': 'block'}
+
+@app.callback(
+    Output('live-train-graph', 'figure'),
+    Input('train-poller', 'n_intervals'),
+    prevent_initial_call=True
+)
+def update_live_train_graph(n):
+    metrics = get_live_metrics()
+    fig = go.Figure()
+
+    if metrics and metrics.get('steps'):
+        fig.add_trace(go.Scatter(
+            x=metrics['steps'],
+            y=metrics['rewards'],
+            mode='lines+markers',
+            name='Mean Reward'
+        ))
+        
+    fig.update_layout(
+        title="Live Training Progress",
+        xaxis_title="Step",
+        yaxis_title="Mean Episode Reward",
+        margin=dict(l=40, r=40, t=40, b=40)
+    )
+    
+    return fig
 
 # TODO - Create evaluation
 # Callback for checking if the evaluation is complete
@@ -220,6 +183,7 @@ eval_process = None
     Output('eval-poller', 'disabled', allow_duplicate=True),
     Output('eval-running', 'data'),
     Output('network-graph', 'style', allow_duplicate=True),
+    Output('rewards-graph', 'style', allow_duplicate=True),
     Output('slider-container', 'style', allow_duplicate=True),
     Input('eval', 'n_clicks'),
     State('cage-path', 'data'),
@@ -229,15 +193,15 @@ eval_process = None
 def eval(n_clicks, cage, agent):
 
     if agent == None:
-        return 'Choose an agent first!', False, False, False, {'display': 'none'}, {'display': 'none'}
+        return 'Choose an agent first!', False, False, False, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
 
     global eval_process
     # If it is already training, do nothing
     if eval_process and eval_process.poll() is None:
-        return 'Already evaluating!', False, False, True, {'display': 'none'}, {'display': 'none'}
+        return 'Already evaluating!', False, False, True, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
     eval_process = evaluate_agent(cage, agent)
 
-    return '', True, False, True, {'display': 'block'}, {'display': 'block'}
+    return '', True, False, True, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
 
 @app.callback(
     Output('eval-warning', 'children', allow_duplicate=True),

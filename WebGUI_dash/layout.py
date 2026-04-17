@@ -18,6 +18,31 @@ layout = html.Div([
 
     dcc.Store(id='cage-path', data='None'),
 
+    html.H4('Training Parameters', style={'marginTop': '20px'}),
+    html.Div([
+        html.Div([
+            html.Label('Steps:'),
+            dcc.Input(id='train-steps', type='number', value=1, min=1, style={'width': '100px'}),
+        ], style={'display': 'flex', 'flexDirection': 'column'}),
+        html.Div([
+            html.Label('Learning Rate:'),
+            dcc.Input(id='train-lr', type='number', value=0.0001, step=0.0001, style={'width': '100px'}),
+        ], style={'display': 'flex', 'flexDirection': 'column'}),
+        html.Div([
+            html.Label('Batch Size:'),
+            dcc.Input(id='train-batch', type='number', value=200, min=10, style={'width': '100px'}),
+        ], style={'display': 'flex', 'flexDirection': 'column'}),
+    ], style={'display': 'flex', 'gap': '20px', 'marginBottom': '20px'}),
+
+    dcc.Graph(
+        id='live-train-graph',
+        style={'display': 'none'},
+        figure={
+            'data': [],
+            'layout': {}
+        }
+    ),
+
     html.P(id='train-loading'),
 
     html.P(id='train-warning'),
@@ -90,6 +115,16 @@ layout = html.Div([
             'layout': {}
         },
         style={'height': '80vh',
+        'display': 'none'}
+        ),
+
+    dcc.Graph(
+        id='rewards-graph',
+        figure={
+            'data': [],
+            'layout': {}
+        },
+        style={'height': '30vh',
         'display': 'none'}
         ),
 

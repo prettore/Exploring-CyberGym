@@ -112,7 +112,7 @@ class VisualiseRedExpansionMod():
             try:
                 actions[agent] = self.env.get_last_action(agent)[0].__class__.__name__
             except Exception as err:
-                print("AN ERROR OCURRED: ", err)
+                # print(f"[ERROR] An error occurred in action mapping: {err}")
                 actions[agent] = None
 
         self.all_actions.append(actions)
@@ -269,6 +269,34 @@ class VisualiseRedExpansionMod():
             traces.append(make_nodes(G_dict['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8))
 
             # ======================
+            # ROUTER LABELS
+            # ======================
+
+            router_x = []
+            router_y = []
+            router_text = []
+
+            for router, label in self.node_label_mapping.items():
+                if router in pos:
+                    router_x.append(pos[router][0])
+                    router_y.append(pos[router][1])
+                    router_text.append(f"<b>{label}</b>")
+
+            if router_x:
+                traces.append(
+                    go.Scatter(
+                        x=router_x,
+                        y=router_y,
+                        mode='text',
+                        text=router_text,
+                        textposition='top center',
+                        textfont=dict(size=14, color='black'),
+                        hoverinfo='none',
+                        showlegend=False
+                    )
+                )
+
+            # ======================
             # FIGURES
             # ======================
 
@@ -345,7 +373,7 @@ class VisualiseRedExpansionMod():
             )
 
             figures.append(fig)
-            print('FIGURE', idx, 'ADDED')
+            # print(f"[DEBUG] Figure {idx} added")
 
         return figures
 
@@ -471,7 +499,7 @@ class VisualiseRedExpansionMod():
 
         # Duplicates are removed from lists
         all_session_agents["blue"] = list(set(all_session_agents["blue"]))
-        all_session_agents["red"] = list(set(all_session_agents["1"]))
+        all_session_agents["red"] = list(set(all_session_agents["red"]))
 
         info = {
             'active_agents' : all_session_agents,

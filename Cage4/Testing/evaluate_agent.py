@@ -50,14 +50,13 @@ def main():
 
 		steps = 50
 		total = {}
-
+		reward_history = {agent_id: [] for agent_id in POLICY_MAP.keys()}
 
 		visualise = VisualiseRedExpansionMod(mae.env, steps)
 
 		for i in range(steps):
 
-			print('DEBUG')
-			print('evaluation step', i)
+			# print(f"[DEBUG] Evaluation step {i}")
 
 			actions = {}
 			for agent_id, agent_obs in obs.items():
@@ -71,6 +70,9 @@ def main():
 					total[agent_id] = 0
 				
 				total[agent_id] += reward
+
+			for agent_id in POLICY_MAP.keys():
+				reward_history[agent_id].append(total.get(agent_id, 0))
 
 			visualise.modified_run(mae.env)
 
@@ -91,10 +93,11 @@ def main():
 		with open(os.path.join(webgui_dir, 'graph.pkl'), 'wb') as f:
 			pickle.dump(collected_figures, f)
 
-		# TODO - CRIAR VISUALIZAÇÃO DE RECOMPENSAS
-		# pprint(total)
+		with open(os.path.join(webgui_dir, 'rewards.pkl'), 'wb') as f:
+			pickle.dump(reward_history, f)
 	else:
-		print('Error on loading agent file - evaluate_agent.py')
+		pass
+		# print("[ERROR] Error on loading agent file - evaluate_agent.py")
 
 
 main()
