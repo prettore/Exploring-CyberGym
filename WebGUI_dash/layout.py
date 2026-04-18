@@ -63,6 +63,17 @@ layout = html.Div([
 
     html.P(id='eval-warning'),
 
+    html.Div([
+        html.Label('Evaluation Steps:'),
+        dcc.Input(
+            id='eval-steps', 
+            type='number', 
+            value=50, 
+            min=1, 
+            style={'width': '100px', 'marginLeft': '10px'}
+        )
+    ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '10px'}),
+
     dcc.Button('Evaluate', id='eval', n_clicks=0),
 
     html.P(id='dummy'),
@@ -81,6 +92,15 @@ layout = html.Div([
         id="eval-poller",
         interval=1000,
         disabled=True
+    ),
+
+    # Debounced slider for smoother interaction
+    dcc.Interval(
+        id="slider-debounce",
+        interval=100,
+        n_intervals=0,
+        disabled=True,
+        max_intervals=1
     ),
 
     dcc.Interval(

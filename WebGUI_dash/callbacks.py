@@ -1,5 +1,7 @@
 from dash.dependencies import Input, Output, State
 from dash import html, dcc
+import os
+import dash
 import plotly.graph_objs as go
 from app import app
 import subprocess
@@ -13,7 +15,9 @@ from utils import (
     create_graph,
     get_actions,
     get_rewards,
-    get_live_metrics
+    get_live_metrics,
+    create_reward_figure,
+    clear_cache
 )
 
 @app.callback(
@@ -34,40 +38,36 @@ def choose_agent(agent):
 
 from pprint import pprint
 @app.callback(
-    Output('network-graph', 'figure', allow_duplicate=True),
-    Output('rewards-graph', 'figure', allow_duplicate=True),
-    Output('actions', 'children'),
+    Output('slider-debounce', 'disabled'),
+    Output('slider-debounce', 'n_intervals'),
     Input('network-slider', 'value'),
     prevent_initial_call=True
 )
-def update_graph(value):
+def trigger_slider_debounce(value):
+    return False, 1
+
+@app.callback(
+    Output('network-graph', 'figure', allow_duplicate=True),
+    Output('rewards-graph', 'figure', allow_duplicate=True),
+    Output('actions', 'children'),
+    Input('slider-debounce', 'n_intervals'),
+    State('network-slider', 'value'),
+    prevent_initial_call=True
+)
+def update_graph_debounced(n_intervals, value):
+    # Use cached graph function
     fig = create_graph(value)
-
+    
+    # Use cached actions
     all_actions = get_actions()
-    actions = all_actions[value] if all_actions else {}
-
-    rewards = get_rewards()
-    reward_fig = go.Figure()
-
-    if rewards:
-        for agent_id, history in rewards.items():
-            reward_fig.add_trace(go.Scatter(
-                x=list(range(len(history))),
-                y=history, # type: ignore
-                mode='lines+markers',
-                name=agent_id
-            ))
-        reward_fig.add_vline(x=value, line_dash="dash", line_color="black")
-        
-        reward_fig.update_layout(
-            title="Cumulative Rewards",
-            xaxis_title="Step",
-            yaxis_title="Reward",
-            margin=dict(l=40, r=40, t=40, b=40)
-        )
-
+    actions = all_actions[value] if all_actions and value < len(all_actions) else {}
+    
+    # Use optimized reward figure with vertical line
+    reward_fig = create_reward_figure(value)
+    
     return fig, reward_fig, html.Div([
-        html.Div(f"{agent}: {action}") for agent, action in actions.items()
+        html.Div(f"{agent}: {action}", style={'margin': '2px 0', 'padding': '5px', 'backgroundColor': '#f0f0f0', 'borderRadius': '3px'}) 
+        for agent, action in actions.items()
     ]) 
 
 # Callback for checking if the training is complete
@@ -185,23 +185,32 @@ eval_process = None
     Output('network-graph', 'style', allow_duplicate=True),
     Output('rewards-graph', 'style', allow_duplicate=True),
     Output('slider-container', 'style', allow_duplicate=True),
+    Output('network-slider', 'max'),
+    Output('network-slider', 'marks'),
     Input('eval', 'n_clicks'),
     State('cage-path', 'data'),
     State('agent-path','data'),
+    State('eval-steps', 'value'),
     prevent_initial_call=True
 )
-def eval(n_clicks, cage, agent):
+def eval(n_clicks, cage, agent, steps):
 
     if agent == None:
-        return 'Choose an agent first!', False, False, False, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+        return 'Choose an agent first!', False, False, False, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, dash.no_update, dash.no_update
 
     global eval_process
     # If it is already training, do nothing
     if eval_process and eval_process.poll() is None:
-        return 'Already evaluating!', False, False, True, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
-    eval_process = evaluate_agent(cage, agent)
+        return 'Already evaluating!', False, False, True, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, dash.no_update, dash.no_update
+    
+    # Clear cache before starting new evaluation
+    clear_cache()
+        
+    eval_process = evaluate_agent(cage, agent, steps)
 
-    return '', True, False, True, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
+    step_marks = {i: str(i) for i in range(0, steps + 1, max(1, steps // 10))}
+
+    return '', True, False, True, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, steps, step_marks
 
 @app.callback(
     Output('eval-warning', 'children', allow_duplicate=True),

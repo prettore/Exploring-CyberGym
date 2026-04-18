@@ -16,7 +16,9 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import pickle
+
 def main():
+	# Adding arguments to be able to train the agent from the terminal
 	parser = argparse.ArgumentParser()
 	parser.add_argument("cage_name", type=str)
 	parser.add_argument("--steps", type=int, default=1)
@@ -109,11 +111,13 @@ def main():
 
 		for i in range(steps_param):
 			
-			# print(f"[DEBUG] Training step {i}")
-
 			results = algo.train()
 			
+			# Log the current looping step number
 			live_metrics['steps'].append(i)
+
+			# Just defensive programming for getting the episode_reward_mean
+			# Depending on the Ray version, the episode_reward_mean can change locations
 			mean_reward = results.get('episode_reward_mean')
 			if mean_reward is None and 'env_runners' in results:
 				mean_reward = results['env_runners'].get('episode_reward_mean', 0)

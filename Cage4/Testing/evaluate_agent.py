@@ -9,15 +9,16 @@ from ray.tune.registry import register_env
 
 import networkx as nx
 import sys
+import argparse
 
 # Function for crating EnterpriseMAE scenario
-def env_creator_CC4(env_config: dict):
+def env_creator_CC4(env_config: dict, max_steps=50):
 
 	sg = EnterpriseScenarioGenerator(
 		blue_agent_class=SleepAgent,
 		green_agent_class=EnterpriseGreenAgent,
 		red_agent_class=FiniteStateRedAgent,
-		steps=50
+		steps=max_steps
 		)
 	cyborg = CybORG(scenario_generator=sg)
 	mae = EnterpriseMAE(env=cyborg, agent_name='blue_agent') 
@@ -25,11 +26,17 @@ def env_creator_CC4(env_config: dict):
 	return mae
 
 def main():
-	if len(sys.argv) > 1:
-		agent_path = sys.argv[1]
+	parser = argparse.ArgumentParser()
+	parser.add_argument("agent_path", type=str)
+	parser.add_argument("--steps", type=int, default=50)
+	args, _ = parser.parse_known_args()
 
-		register_env(name='CC4', env_creator=lambda config: env_creator_CC4(config))
-		mae = env_creator_CC4({})
+	if True:
+		agent_path = args.agent_path
+		steps = args.steps
+
+		register_env(name='CC4', env_creator=lambda config: env_creator_CC4(config, max_steps=steps))
+		mae = env_creator_CC4({}, max_steps=steps)
 
 		NUM_AGENTS = 5
 		POLICY_MAP = {f'blue_agent_{i}': f'Agent{i}' for i in range(NUM_AGENTS)}
@@ -48,7 +55,6 @@ def main():
 		checkpoint_path = os.path.join(base_dir, agent_path)
 		algo = Algorithm.from_checkpoint(checkpoint_path)
 
-		steps = 50
 		total = {}
 		reward_history = {agent_id: [] for agent_id in POLICY_MAP.keys()}
 

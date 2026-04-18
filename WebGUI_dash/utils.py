@@ -2,8 +2,21 @@ import os
 import shutil
 import subprocess
 import pickle
+import time
+from functools import lru_cache
+from typing import Dict, List, Optional, Any
+import plotly.graph_objs as go
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Global cache for performance
+_cached_data = {
+    'graphs': None,
+    'actions': None,
+    'rewards': None,
+    'reward_figure': None,
+    'last_load_time': 0
+}
 
 # Listing possible environments
 CAGES = ('Cage4',)
@@ -59,7 +72,7 @@ def start_training(cage_path, steps=1, lr=0.0001, batch_size=200):
     return subprocess.Popen(args, env=env)
 
 # Create evaluate_agent.py subprocess
-def evaluate_agent(cage_path, agent_path):
+def evaluate_agent(cage_path, agent_path, steps):
     root_path = 'results'
     agent_path = os.path.join(root_path, cage_path, agent_path)
 
@@ -72,45 +85,56 @@ def evaluate_agent(cage_path, agent_path):
     challenge_dir = f'cage-challenge-{cage_path[-1]}'
     env['PYTHONPATH'] = os.path.abspath(os.path.join(BASE_DIR, '..', cage_path, challenge_dir))
 
-    return subprocess.Popen(
-       [python_exec, script_path, agent_path],
-      env=env
-    )
+    args = [
+        python_exec, script_path, 
+        agent_path, 
+        "--steps", str(steps)
+    ]
 
-# Retrieve graph from 'collected_figures'
+    return subprocess.Popen(args, env=env)
+
+# Retrieve graph from 'collected_figures' with caching
 def create_graph(idx):
-    collected_figures = None
-    try:
-        with open(os.path.join(BASE_DIR, 'graph.pkl'), 'rb') as f:
-           collected_figures = pickle.load(f)
-    except FileNotFoundError:
-        # print("[ERROR] Graph File not found!")
-        return None
-
-    fig = collected_figures[idx]
-    return fig
+    global _cached_data
+    
+    # Load data if not cached or cache is stale
+    if _cached_data['graphs'] is None:
+        try:
+            with open(os.path.join(BASE_DIR, 'graph.pkl'), 'rb') as f:
+               _cached_data['graphs'] = pickle.load(f)
+        except FileNotFoundError:
+            return None
+    
+    # Return cached graph
+    if idx < len(_cached_data['graphs']):
+        return _cached_data['graphs'][idx]
+    return None
 
 def get_actions():
-    actions = {}
-    try:
-        with open(os.path.join(BASE_DIR, 'actions.pkl'), 'rb') as f:
-           actions = pickle.load(f)
-    except FileNotFoundError:
-        # print("[ERROR] Actions File not found!")
-        return None
-
-    return actions
+    global _cached_data
+    
+    # Load data if not cached
+    if _cached_data['actions'] is None:
+        try:
+            with open(os.path.join(BASE_DIR, 'actions.pkl'), 'rb') as f:
+               _cached_data['actions'] = pickle.load(f)
+        except FileNotFoundError:
+            return None
+    
+    return _cached_data['actions']
 
 def get_rewards():
-    rewards = {}
-    try:
-        with open(os.path.join(BASE_DIR, 'rewards.pkl'), 'rb') as f:
-           rewards = pickle.load(f)
-    except FileNotFoundError:
-        # print("[ERROR] Rewards file not found!")
-        return None
-
-    return rewards
+    global _cached_data
+    
+    # Load data if not cached
+    if _cached_data['rewards'] is None:
+        try:
+            with open(os.path.join(BASE_DIR, 'rewards.pkl'), 'rb') as f:
+               _cached_data['rewards'] = pickle.load(f)
+        except FileNotFoundError:
+            return None
+    
+    return _cached_data['rewards']
 
 def get_live_metrics():
     metrics = None
@@ -121,3 +145,54 @@ def get_live_metrics():
         return None
 
     return metrics
+
+# Create optimized reward figure with caching
+def create_reward_figure(current_step=None):
+    global _cached_data
+    
+    rewards = get_rewards()
+    if not rewards:
+        return go.Figure()
+    
+    # Create figure if not cached
+    if _cached_data['reward_figure'] is None:
+        fig = go.Figure()
+        
+        for agent_id, history in rewards.items():
+            fig.add_trace(go.Scatter(
+                x=list(range(len(history))),
+                y=history,
+                mode='lines+markers',
+                name=agent_id,
+                line=dict(width=2)
+            ))
+        
+        fig.update_layout(
+            title="Cumulative Rewards",
+            xaxis_title="Step",
+            yaxis_title="Reward",
+            margin=dict(l=40, r=40, t=40, b=40),
+            template="plotly_white",
+            hovermode="x unified"
+        )
+        
+        _cached_data['reward_figure'] = fig
+    
+    # Add vertical line if step is specified
+    if current_step is not None:
+        fig_copy = go.Figure(_cached_data['reward_figure'])
+        fig_copy.add_vline(x=current_step, line_dash="dash", line_color="black", line_width=2)
+        return fig_copy
+    
+    return _cached_data['reward_figure']
+
+# Clear cache when new evaluation starts
+def clear_cache():
+    global _cached_data
+    _cached_data = {
+        'graphs': None,
+        'actions': None,
+        'rewards': None,
+        'reward_figure': None,
+        'last_load_time': 0
+    }
