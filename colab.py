@@ -98,6 +98,15 @@ from CybORG.Agents import SleepAgent, EnterpriseGreenAgent, FiniteStateRedAgent
 from ray.tune import register_env
 from ray.rllib.algorithms.ppo import PPOConfig
 from ray.rllib.policy.policy import PolicySpec
+import ray
+
+# Initialize Ray with local mode to prevent autoscaler warnings
+ray.init(
+    ignore_reinit_error=True,
+    log_to_driver=False,
+    _temp_dir="/tmp/ray",
+    runtime_env={"env_vars": {"PYTHONWARNINGS": "ignore::DeprecationWarning"}}
+)
 
 NUM_AGENTS = 5
 POLICY_MAP  = {f"blue_agent_{i}": f"Agent{i}" for i in range(NUM_AGENTS)}
@@ -140,6 +149,10 @@ algo_config = (
     .env_runners(
         num_env_runners=0,  # Set to 0 to use local mode (no parallel workers)
         rollout_fragment_length=EVAL_STEPS,
+    )
+    .resources(
+        num_cpus_per_worker=0,  # Disable CPU allocation for workers
+        num_gpus_per_worker=0,  # Disable GPU allocation
     )
 )
 
