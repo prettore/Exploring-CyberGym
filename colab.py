@@ -60,7 +60,7 @@ subprocess.check_call(
 print("Installing remaining dashboard dependencies …")
 _pip("plotly", "networkx", "numpy", "matplotlib")
 
-print("\n✅  All dependencies installed.")
+print("\nAll dependencies installed.")
 
 # =============================================================================
 # %%  2. ENVIRONMENT SETUP
@@ -138,12 +138,12 @@ algo_config = (
         policy_mapping_fn=policy_mapper,
     )
     .env_runners(
-        num_env_runners=1,
+        num_env_runners=0,  # Set to 0 to use local mode (no parallel workers)
         rollout_fragment_length=EVAL_STEPS,
     )
 )
 
-print(f"\n🏋️  Training for {TRAIN_STEPS} iteration(s) …")
+print(f"\nTraining for {TRAIN_STEPS} iteration(s) …")
 algo = algo_config.build()
 reward_log = []
 
@@ -169,7 +169,7 @@ next_num = max(nums) + 1 if nums else 1
 checkpoint_path = os.path.join(results_dir, f"training{next_num}")
 
 algo.save(checkpoint_path)
-print(f"\n💾  Checkpoint saved → {checkpoint_path}")
+print(f"\nCheckpoint saved → {checkpoint_path}")
 
 # =============================================================================
 # %%  4. EVALUATION
@@ -178,7 +178,7 @@ print(f"\n💾  Checkpoint saved → {checkpoint_path}")
 from ray.rllib.algorithms.algorithm import Algorithm
 from VisualiseRedExpansionMod import VisualiseRedExpansionMod
 
-print(f"\n🔬  Evaluating for {EVAL_STEPS} step(s) …")
+print(f"\nEvaluating for {EVAL_STEPS} step(s) …")
 
 # Re-register env with the correct step count (may already be registered)
 try:
@@ -221,7 +221,7 @@ for i in range(EVAL_STEPS):
 collected_figures = visualise.get_figures()
 all_actions       = visualise.all_actions
 
-print("✅  Evaluation complete.")
+print("Evaluation complete.")
 
 # =============================================================================
 # %%  5. SAVE OUTPUT FILES
@@ -235,7 +235,7 @@ with open(graph_path,   "wb") as f: pickle.dump(collected_figures, f)
 with open(actions_path, "wb") as f: pickle.dump(all_actions,       f)
 with open(rewards_path, "wb") as f: pickle.dump(reward_history,    f)
 
-print(f"\n📦  Output files written:")
+print(f"\nOutput files written:")
 print(f"    {graph_path}")
 print(f"    {actions_path}")
 print(f"    {rewards_path}")
@@ -249,12 +249,12 @@ print(f"    {rewards_path}")
 try:
     from google.colab import files as colab_files
 
-    print("\n⬇️  Downloading result files …")
+    print("\nDownloading result files …")
     colab_files.download(graph_path)
     colab_files.download(actions_path)
     colab_files.download(rewards_path)
     print(
-        "\n✅  Done!  Move the three downloaded .pkl files into your local\n"
+        "\n  Done!  Move the three downloaded .pkl files into your local\n"
         "    Exploring-CyberGym/WebGUI_dash/ directory, then run:\n\n"
         "        cd WebGUI_dash && python index.py\n\n"
         "    Select Cage4, choose the agent, and click Evaluate."
@@ -262,6 +262,6 @@ try:
 
 except ImportError:
     print(
-        "\nℹ️  Not running in Google Colab — files are already saved to\n"
+        "\nNot running in Google Colab — files are already saved to\n"
         f"   {WEBGUI_DIR}"
     )
