@@ -119,7 +119,7 @@ layout = html.Div([
 
     dcc.Interval(
         id="sleep",
-        interval=1000,
+        interval=500,
         n_intervals=0,
         disabled=True
     )
@@ -149,13 +149,15 @@ layout = html.Div([
         ),
 
     html.Div(
-        dcc.Button('>', id='start'),  # TODO - Ao apertar o botão, o Slider será movimentado automaticamente!
-        style={'display':'none'}
+        dcc.Button('▶ Play', id='start'),
+        id='play-container',
+        style={'display': 'none', 'marginBottom': '6px'}
     ),
 
     html.Div(
-        dcc.Button('||', id='pause'), # TODO - pausa!
-        style={'display':'none'}
+        dcc.Button('⏸ Pause', id='pause'),
+        id='pause-container',
+        style={'display': 'none', 'marginBottom': '6px'}
     ),
 
     html.Div(

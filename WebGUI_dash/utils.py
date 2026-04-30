@@ -1,4 +1,6 @@
 import os
+import re
+import json
 import shutil
 import subprocess
 import pickle
@@ -58,7 +60,9 @@ def start_training(cage_path, steps=1, lr=0.0001, batch_size=200):
 
     # Insert cage on python path, for it isn't a pip package
     env = os.environ.copy()
-    challenge_dir = f'cage-challenge-{cage_path[-1]}' # e.g. cage-challenge-4
+    # Extract the numeric suffix (e.g. '4' from 'Cage4', '10' from 'Cage10')
+    cage_num = re.search(r'(\d+)$', cage_path)
+    challenge_dir = f'cage-challenge-{cage_num.group(1)}' if cage_num else cage_path
     env['PYTHONPATH'] = os.path.abspath(os.path.join(BASE_DIR, '..', cage_path, challenge_dir))
 
     args = [
@@ -82,7 +86,8 @@ def evaluate_agent(cage_path, agent_path, steps):
     script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'evaluate_agent.py')
 
     env = os.environ.copy()
-    challenge_dir = f'cage-challenge-{cage_path[-1]}'
+    cage_num = re.search(r'(\d+)$', cage_path)
+    challenge_dir = f'cage-challenge-{cage_num.group(1)}' if cage_num else cage_path
     env['PYTHONPATH'] = os.path.abspath(os.path.join(BASE_DIR, '..', cage_path, challenge_dir))
 
     args = [
@@ -136,16 +141,6 @@ def get_rewards():
     
     return _cached_data['rewards']
 
-def get_live_metrics():
-    metrics = None
-    try:
-        with open(os.path.join(BASE_DIR, 'live_train.pkl'), 'rb') as f:
-           metrics = pickle.load(f)
-    except FileNotFoundError:
-        return None
-
-    return metrics
-
 # Create optimized reward figure with caching
 def create_reward_figure(current_step=None):
     global _cached_data
@@ -196,3 +191,12 @@ def clear_cache():
         'reward_figure': None,
         'last_load_time': 0
     }
+
+# Read live training metrics written by train_agent.py
+def get_live_train_data():
+    path = os.path.join(BASE_DIR, 'live_train.json')
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []

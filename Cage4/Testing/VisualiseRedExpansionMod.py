@@ -194,7 +194,7 @@ class VisualiseRedExpansionMod():
             # EDGES
             # ======================
                 
-            def make_edges(edgelist, dash=None):
+            def make_edges(edgelist, dash=None, color='black'):
                 edge_x, edge_y = [], []
                 for u, v in edgelist:
                     if u not in pos or v not in pos:
@@ -208,30 +208,38 @@ class VisualiseRedExpansionMod():
                     x=edge_x,
                     y=edge_y,
                     mode='lines',
-                    line=dict(width=1, dash=dash),
+                    line=dict(width=1, dash=dash, color=color),
                     hoverinfo='none',
                     showlegend=False  # added
                 )
 
-            # fixed edges of the network
+            # fixed edges of the network (black)
             traces.append(make_edges(self.host_interfaces))
 
-            # sessions (dotted line)
-            traces.append(make_edges(G_dict['host_sessions'], dash='dot'))
+            # red agent sessions (dotted red)
+            red_sessions = [(host, agent) for host, agent in G_dict['host_sessions'] if 'red' in agent]
+            if red_sessions:
+                traces.append(make_edges(red_sessions, dash='dot', color='red'))
+
+            # blue agent sessions (dotted blue)
+            blue_sessions = [(host, agent) for host, agent in G_dict['host_sessions'] if 'blue' in agent]
+            if blue_sessions:
+                traces.append(make_edges(blue_sessions, dash='dot', color='blue'))
 
             # ======================
             # NODES
             # ======================
 
-            def make_nodes(nodelist, color, symbol, size=200, alpha=1):
-                x, y = [], []
+            def make_nodes(nodelist, color, symbol, size=200, alpha=1, labels=None):
+                x, y, text = [], [], []
 
-                for n in nodelist:
+                for i, n in enumerate(nodelist):
                     if n not in pos:
                         continue
                     xi, yi = pos[n]
                     x.append(xi)
                     y.append(yi)
+                    text.append(labels[i] if labels and i < len(labels) else str(n))
 
                 return go.Scatter(
                     x=x,
@@ -243,30 +251,52 @@ class VisualiseRedExpansionMod():
                         symbol=symbol,
                         opacity=alpha
                     ),
-                    hoverinfo='none',
-                    showlegend=False # added
+                    text=text,
+                    hoverinfo='text',
+                    showlegend=False
                 )
             # ======================
             # HOST TYPES
             # ======================
 
-            traces.append(make_nodes(self.host_nodes['users'], '#C0C0C0', 'circle'))
-            traces.append(make_nodes(self.host_nodes['servers'], '#C0C0C0', 'square'))
-            traces.append(make_nodes(self.host_nodes['other'], '#C0C0C0', 'hexagon'))
+            traces.append(make_nodes(
+                self.host_nodes['users'], '#C0C0C0', 'circle',
+                labels=[f"💻 {n}" for n in self.host_nodes['users']]
+            ))
+            traces.append(make_nodes(
+                self.host_nodes['servers'], '#C0C0C0', 'square',
+                labels=[f"🖥️ {n}" for n in self.host_nodes['servers']]
+            ))
+            traces.append(make_nodes(
+                self.host_nodes['other'], '#C0C0C0', 'hexagon',
+                labels=[f"🌐 {n}" for n in self.host_nodes['other']]
+            ))
 
             # ======================
             # AGENTS
             # ======================
 
-            traces.append(make_nodes(G_dict['active_agents']['red'], '#EE4B2B', 'triangle-up'))
-            traces.append(make_nodes(G_dict['active_agents']['blue'], '#0096FF', 'triangle-up'))
+            traces.append(make_nodes(
+                G_dict['active_agents']['red'], '#EE4B2B', 'triangle-up',
+                labels=[f"🚨 {n} (red agent)" for n in G_dict['active_agents']['red']]
+            ))
+            traces.append(make_nodes(
+                G_dict['active_agents']['blue'], '#0096FF', 'triangle-up',
+                labels=[f"🛡️ {n} (blue agent)" for n in G_dict['active_agents']['blue']]
+            ))
 
             # ======================
             # STATES
             # ======================
 
-            traces.append(make_nodes(G_dict['compromised_hosts'], '#FFA500', 'circle', alpha=0.8))
-            traces.append(make_nodes(G_dict['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8))
+            traces.append(make_nodes(
+                G_dict['compromised_hosts'], '#FFA500', 'circle', alpha=0.8,
+                labels=[f"⚠️ {n} (compromised)" for n in G_dict['compromised_hosts']]
+            ))
+            traces.append(make_nodes(
+                G_dict['red_root_nodes'], '#EE4B2B', 'circle', alpha=0.8,
+                labels=[f"🔴 {n} (root access)" for n in G_dict['red_root_nodes']]
+            ))
 
             # ======================
             # ROUTER LABELS
