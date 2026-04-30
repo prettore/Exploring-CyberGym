@@ -152,8 +152,9 @@ algo_config = (
     )
     .resources(
         num_cpus_per_worker=0,  # Disable CPU allocation for workers
-        num_gpus_per_worker=0,  # Disable GPU allocation
+        num_gpus_per_worker=0,  # Disable GPU allocation for workers (but main process can still use GPU)
     )
+    .framework("torch")  # Ensure PyTorch can still use GPU
 )
 
 print(f"\nTraining for {TRAIN_STEPS} iteration(s) …")
