@@ -1,5 +1,0 @@
-pyyaml
-pathlib
-pprintpp
-matplotlib
-networkx
