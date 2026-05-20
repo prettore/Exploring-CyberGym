@@ -30,7 +30,7 @@ CONFIGURATION — edit the values below before running.
 # %%  0. CONFIGURATION
 # =============================================================================
 
-TRAIN_STEPS      = 5        # Number of PPO training iterations
+TRAIN_STEPS      = 1000        # Number of PPO training iterations
 TRAIN_LR         = 0.0001   # Learning rate
 TRAIN_BATCH_SIZE = 200      # Train batch size
 EVAL_STEPS       = 50       # Number of evaluation steps (episode length)
