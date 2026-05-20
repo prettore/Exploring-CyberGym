@@ -1,9 +1,14 @@
 # CybORG installation
 
 These steps differ from the original guide for they fix numpy dependency, also creating a virtual environment is highly recommended.
-Feel free to use anaconda, although this is a slower approach.
+
+Inicialize submodules after cloning the repo
+```
+git submodule update --init --recursive
+```
 
 Use pyenv version management tool and install python 3.10
+Feel free to use anaconda, although this is a slower approach.
 Ensure you are at the project root
 ```
 pyenv install 3.10
