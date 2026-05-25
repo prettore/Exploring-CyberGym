@@ -10,5 +10,5 @@ To run the web interface locally, simply activate the virtual environment and st
 pythom -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python app.py
+python index.py
 ```
