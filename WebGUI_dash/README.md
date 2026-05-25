@@ -7,8 +7,8 @@ This directory contains the dashboard interface for the Exploring-CyberGym proje
 To run the web interface locally, simply activate the virtual environment and start the application:
 
 ```bash
+pythom -m venv .venv
 source .venv/bin/activate
+pip install -r requirements.txt
 python app.py
 ```
-
-*(Note: If you are setting this up for the first time, ensure your `.venv` is active and run `pip install -r requirements.txt` before starting the app).*
