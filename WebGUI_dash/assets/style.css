@@ -1,0 +1,423 @@
+/* CyberGym Premium Dark Theme Stylesheet */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #080C14;
+    color: #E2E8F0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 350px;
+    background-color: #0E1524;
+    border-right: 1px solid #1E293B;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #00F0FF 0%, #0072FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-section {
+    margin-bottom: 24px;
+}
+
+.sidebar-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748B;
+    margin-bottom: 12px;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+    background-color: #080C14;
+}
+
+/* Header & Status Indicator */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #1E293B;
+    padding-bottom: 20px;
+}
+
+.header-title-container h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.header-title-container p {
+    font-size: 14px;
+    color: #64748B;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #0F172A;
+    border: 1px solid #1E293B;
+    color: #94A3B8;
+    transition: all 0.3s ease;
+}
+
+.status-badge.running {
+    border-color: rgba(16, 185, 129, 0.4);
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.status-badge.failed {
+    border-color: rgba(239, 68, 68, 0.4);
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.status-badge.finished {
+    border-color: rgba(59, 130, 246, 0.4);
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3B82F6;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+}
+
+.status-badge.running .pulse-dot {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Stat Cards Grid */
+.stat-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #0E1524;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stat-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748B;
+    margin-bottom: 8px;
+}
+
+.stat-card-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* Glassmorphism Configuration Card */
+.config-card {
+    background-color: #0E1524;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Inputs & Form Controls */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #94A3B8;
+    margin-bottom: 6px;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Custom Dropdown Overrides (React-Select styling) */
+.Select-control {
+    background-color: #151F32 !important;
+    border: 1px solid #1E293B !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    height: 40px !important;
+}
+
+.Select-value-label,
+.Select-placeholder,
+.Select-input input {
+    color: #E2E8F0 !important;
+}
+
+.Select-menu-outer {
+    background-color: #151F32 !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 8px !important;
+    margin-top: 4px !important;
+    z-index: 1000 !important;
+}
+
+.Select-option {
+    background-color: transparent !important;
+    color: #E2E8F0 !important;
+    padding: 10px 14px !important;
+}
+
+.Select-option.is-focused,
+.Select-option:hover {
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+}
+
+/* Custom Input Styling */
+input[type="number"] {
+    width: 100% !important;
+    height: 40px;
+    background-color: #151F32;
+    border: 1px solid #1E293B;
+    border-radius: 8px;
+    color: #FFFFFF;
+    padding: 0 14px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #0072FF;
+    box-shadow: 0 0 0 2px rgba(0, 114, 255, 0.25);
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    height: 42px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00F0FF 0%, #0072FF 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 114, 255, 0.35);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: #1E293B;
+    color: #E2E8F0;
+    border: 1px solid #334155;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: #334155;
+    color: #FFFFFF;
+}
+
+/* Warning & Alerts */
+.warning-message {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #F87171;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+}
+
+.warning-message:not(:empty) {
+    display: block;
+}
+
+/* Tabs System */
+.tabs-container {
+    background-color: #0E1524;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.custom-tabs {
+    display: flex;
+    border-bottom: 1px solid #1E293B;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.custom-tab {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748B;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.custom-tab:hover {
+    color: #E2E8F0;
+}
+
+.custom-tab.active {
+    color: #FFFFFF;
+    border-bottom-color: #00F0FF;
+}
+
+/* Graphs area */
+.graph-container {
+    background-color: #090E1A;
+    border-radius: 8px;
+    border: 1px solid #1E293B;
+    padding: 16px;
+    margin-bottom: 20px;
+    min-height: 350px;
+}
+
+/* Interactive Network View specific styles */
+.playback-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.playback-controls button {
+    width: auto;
+    padding: 8px 16px;
+}
+
+.slider-container-box {
+    background-color: #0F172A;
+    border: 1px solid #1E293B;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-bottom: 20px;
+}
+
+.actions-log {
+    background-color: #090E1A;
+    border: 1px solid #1E293B;
+    border-radius: 8px;
+    padding: 16px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 13px;
+    color: #94A3B8;
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 40px;
+    border-top: 1px solid #1E293B;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer h5 {
+    font-size: 12px;
+    font-weight: 500;
+    color: #475569;
+}

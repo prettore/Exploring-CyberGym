@@ -60,6 +60,7 @@ def start_training(cage_path, steps=1, lr=0.0001, batch_size=200):
 
     # Insert cage on python path, for it isn't a pip package
     env = os.environ.copy()
+    env['RAY_memory_monitor_refresh_ms'] = '0'
     # Extract the numeric suffix (e.g. '4' from 'Cage4', '10' from 'Cage10')
     cage_num = re.search(r'(\d+)$', cage_path)
     challenge_dir = f'cage-challenge-{cage_num.group(1)}' if cage_num else cage_path
@@ -86,6 +87,7 @@ def evaluate_agent(cage_path, agent_path, steps):
     script_path = os.path.join(BASE_DIR, '..', cage_path, 'Testing', 'evaluate_agent.py')
 
     env = os.environ.copy()
+    env['RAY_memory_monitor_refresh_ms'] = '0'
     cage_num = re.search(r'(\d+)$', cage_path)
     challenge_dir = f'cage-challenge-{cage_num.group(1)}' if cage_num else cage_path
     env['PYTHONPATH'] = os.path.abspath(os.path.join(BASE_DIR, '..', cage_path, challenge_dir))

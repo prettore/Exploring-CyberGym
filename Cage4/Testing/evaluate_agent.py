@@ -44,6 +44,7 @@ def main():
 	obs, _ = mae.reset()
 
 	base_dir = os.path.abspath('.')
+	# Here the checkpoint is collected
 	checkpoint_path = os.path.join(base_dir, agent_path)
 	algo = Algorithm.from_checkpoint(checkpoint_path)
 

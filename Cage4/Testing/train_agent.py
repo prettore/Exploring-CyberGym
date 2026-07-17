@@ -88,15 +88,33 @@ def main():
 	for i in range(steps_param):
 		results = algo.train()
 
-		# Defensive: episode_reward_mean location varies across Ray versions
+		# Defensive: episode_reward_mean, min, max location varies across Ray versions
 		mean_reward = results.get('episode_reward_mean')
 		if mean_reward is None and 'env_runners' in results:
 			mean_reward = results['env_runners'].get('episode_reward_mean', 0)
 		if mean_reward is None:
 			mean_reward = 0
 
+		min_reward = results.get('episode_reward_min')
+		if min_reward is None and 'env_runners' in results:
+			min_reward = results['env_runners'].get('episode_reward_min', 0)
+		if min_reward is None:
+			min_reward = 0
+
+		max_reward = results.get('episode_reward_max')
+		if max_reward is None and 'env_runners' in results:
+			max_reward = results['env_runners'].get('episode_reward_max', 0)
+		if max_reward is None:
+			max_reward = 0
+
 		# Stream metric to dashboard
-		live_data.append({'step': i, 'reward': float(mean_reward)})
+		live_data.append({
+			'step': i, 
+			'reward': float(mean_reward),
+			'reward_mean': float(mean_reward),
+			'reward_min': float(min_reward),
+			'reward_max': float(max_reward)
+		})
 		with open(live_train_path, 'w') as lf:
 			json.dump(live_data, lf)
 

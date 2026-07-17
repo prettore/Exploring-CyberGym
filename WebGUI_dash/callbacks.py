@@ -24,24 +24,92 @@ def _build_live_train_figure():
     """Build a reward-over-steps figure from the live training JSON file."""
     data = get_live_train_data()
     if not data:
-        return dash.no_update
-    fig = go.Figure(go.Scatter(
-        x=[d['step'] + 1 for d in data],
-        y=[d['reward'] for d in data],
+        fig = go.Figure()
+        fig.update_layout(
+            title=dict(
+                text='Live Training — Mean Reward per Step',
+                font=dict(size=16, color='#FFFFFF')
+            ),
+            xaxis_title='Training Step',
+            yaxis_title='Reward',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color='#64748B', family='Outfit'),
+            xaxis=dict(showgrid=True, gridcolor='#1E293B', zeroline=False),
+            yaxis=dict(showgrid=True, gridcolor='#1E293B', zeroline=False),
+            margin=dict(l=40, r=40, t=50, b=45)
+        )
+        return fig
+
+    x = [d['step'] + 1 for d in data]
+    y_mean = [d.get('reward_mean', d.get('reward', 0.0)) for d in data]
+    y_min = [d.get('reward_min', d.get('reward', 0.0)) for d in data]
+    y_max = [d.get('reward_max', d.get('reward', 0.0)) for d in data]
+
+    fig = go.Figure()
+
+    # Min line (invisible, serves as lower boundary for filled area)
+    fig.add_trace(go.Scatter(
+        x=x,
+        y=y_min,
+        mode='lines',
+        line=dict(width=0),
+        hoverinfo='skip',
+        showlegend=False,
+    ))
+
+    # Max line (filled to next line - which is the min line)
+    fig.add_trace(go.Scatter(
+        x=x,
+        y=y_max,
+        mode='lines',
+        line=dict(width=0),
+        fill='tonexty',
+        fillcolor='rgba(0, 240, 255, 0.12)',
+        name='Min-Max Range',
+        hoverinfo='skip',
+    ))
+
+    # Mean Reward line
+    fig.add_trace(go.Scatter(
+        x=x,
+        y=y_mean,
         mode='lines+markers',
         name='Mean Reward',
-        line=dict(color='#2196F3', width=2),
-        marker=dict(size=6),
+        line=dict(color='#00F0FF', width=3),
+        marker=dict(size=6, color='#0072FF', line=dict(color='#00F0FF', width=1)),
     ))
+
     fig.update_layout(
-        title='Live Training — Mean Reward per Step',
+        title=dict(
+            text='Live Training — Mean Reward & Variance',
+            font=dict(size=16, color='#FFFFFF')
+        ),
         xaxis_title='Training Step',
-        yaxis_title='Mean Episode Reward',
-        template='plotly_white',
-        margin=dict(l=40, r=40, t=40, b=40),
+        yaxis_title='Episode Reward',
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='#94A3B8', family='Outfit'),
+        xaxis=dict(
+            showgrid=True,
+            gridcolor='#1E293B',
+            zeroline=False,
+            dtick=1
+        ),
+        yaxis=dict(showgrid=True, gridcolor='#1E293B', zeroline=False),
+        margin=dict(l=40, r=40, t=50, b=45),
         hovermode='x unified',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(color='#E2E8F0')
+        )
     )
     return fig
+
 
 # Subprocess handles for background training and evaluation
 train_process = None
@@ -52,7 +120,6 @@ eval_process = None
     Input('choose-cage', 'value'),
 )
 def choose_cage(cage):
-    #AGENT_FILES = list_trained_agents(cage)
     return cage
 
 @app.callback(
@@ -82,20 +149,16 @@ def trigger_slider_debounce(value):
     prevent_initial_call=True
 )
 def update_graph_debounced(n_intervals, value):
-    # Use cached graph function
     fig = create_graph(value)
-    
-    # Use cached actions
     all_actions = get_actions()
     actions = all_actions[value] if all_actions and value < len(all_actions) else {}
-    
-    # Use optimized reward figure with vertical line
     reward_fig = create_reward_figure(value)
     
     return fig, reward_fig, html.Div([
-        html.Div(f"{agent}: {action}", style={'margin': '2px 0', 'padding': '5px', 'backgroundColor': '#f0f0f0', 'borderRadius': '3px'}) 
+        html.Div(f"{agent}: {action}", style={'margin': '4px 0', 'padding': '8px', 'backgroundColor': '#1E293B', 'borderRadius': '6px', 'color': '#E2E8F0'}) 
         for agent, action in actions.items()
     ]) 
+
 
 # Callback for checking if the training is complete
 @app.callback(
@@ -103,6 +166,12 @@ def update_graph_debounced(n_intervals, value):
     Output('train-poller', 'disabled', allow_duplicate=True),
     Output('choose-agent', 'options'),
     Output('live-train-graph', 'figure', allow_duplicate=True),
+    Output('train-running', 'data', allow_duplicate=True),
+    Output('global-status-text', 'children', allow_duplicate=True),
+    Output('global-status-badge', 'className', allow_duplicate=True),
+    Output('stat-train-step', 'children', allow_duplicate=True),
+    Output('stat-mean-reward', 'children', allow_duplicate=True),
+    Output('stat-max-reward', 'children', allow_duplicate=True),
     Input('train-poller', 'n_intervals'),
     State('train-running', 'data'),
     State('cage-path', 'data'),
@@ -111,20 +180,65 @@ def update_graph_debounced(n_intervals, value):
 def check_train(n, running, cage):
     global train_process
 
-    if not running:
-        return '', True, dash.no_update, dash.no_update
+    if not running or train_process is None:
+        return '', True, dash.no_update, dash.no_update, False, "Idle", "status-badge", "N/A", "N/A", "N/A"
 
     live_fig = _build_live_train_figure()
 
+    data = get_live_train_data()
+    if data:
+        current_step = str(data[-1]['step'] + 1)
+        mean_reward = f"{data[-1].get('reward_mean', data[-1].get('reward', 0.0)):.2f}"
+        max_reward = f"{max(d.get('reward_max', d.get('reward', 0.0)) for d in data):.2f}"
+    else:
+        current_step = "0"
+        mean_reward = "0.00"
+        max_reward = "0.00"
+
+    # Still training
     if train_process.poll() is None:
         agent_files = list_trained_agents(cage)
-        return 'Training...', False, agent_files, live_fig
+        return (
+            'Training...', 
+            False, 
+            agent_files, 
+            live_fig, 
+            True, 
+            "Training Agent...", 
+            "status-badge running",
+            current_step,
+            mean_reward,
+            max_reward
+        )
 
+    # Completed training
     agent_files = list_trained_agents(cage)
     if train_process.returncode != 0:
-        return f'Training failed (exit code {train_process.returncode})', True, agent_files, live_fig
-    return 'Finished!', True, agent_files, live_fig
-
+        return (
+            f'Training failed (exit code {train_process.returncode})', 
+            True, 
+            agent_files, 
+            live_fig, 
+            False, 
+            "Training Failed", 
+            "status-badge failed",
+            current_step,
+            mean_reward,
+            max_reward
+        )
+        
+    return (
+        'Finished!', 
+        True, 
+        agent_files, 
+        live_fig, 
+        False, 
+        "Finished!", 
+        "status-badge finished",
+        current_step,
+        mean_reward,
+        max_reward
+    )
 
 
 @app.callback(
@@ -141,7 +255,11 @@ def clean_train_warning(n):
     Output('train-warning-clear', 'disabled', allow_duplicate=True),
     Output('train-poller', 'disabled', allow_duplicate=True),
     Output('train-running', 'data'),
-    Output('live-train-graph', 'style', allow_duplicate=True),
+    Output('global-status-text', 'children', allow_duplicate=True),
+    Output('global-status-badge', 'className', allow_duplicate=True),
+    Output('stat-train-step', 'children', allow_duplicate=True),
+    Output('stat-mean-reward', 'children', allow_duplicate=True),
+    Output('stat-max-reward', 'children', allow_duplicate=True),
     Input('train', 'n_clicks'),
     State('cage-path', 'data'),
     State('train-steps', 'value'),
@@ -150,22 +268,34 @@ def clean_train_warning(n):
     prevent_initial_call=True
 )
 def train(n_clicks, data, steps, lr, batch_size):
-
     if data == None:
-        return 'Choose a Cage first!', False, True, False
-    
+        return 'Choose a Cage first!', False, True, False, "Idle", "status-badge", dash.no_update, dash.no_update, dash.no_update
+
     global train_process
     # If it is already training, do nothing
     if train_process and train_process.poll() is None:
-        return 'Already training!', False, False, True, {'display': 'block'}
+        return 'Already training!', False, False, True, "Training Agent...", "status-badge running", dash.no_update, dash.no_update, dash.no_update
+        
+    # Start fresh training metrics
+    webgui_dir = os.path.dirname(os.path.abspath(__file__))
+    live_train_path = os.path.join(webgui_dir, 'live_train.json')
+    try:
+        if os.path.exists(live_train_path):
+            os.remove(live_train_path)
+    except OSError:
+        pass
+
     train_process = start_training(data, steps, lr, batch_size)
-    return '', True, False, True, {'display': 'block'}
+    return '', True, False, True, "Training Agent...", "status-badge running", "0", "0.00", "0.00"
 
 
 # Callback for checking if the evaluation is complete
 @app.callback(
     Output('eval-loading', 'children'),
     Output('eval-poller', 'disabled', allow_duplicate=True),
+    Output('eval-running', 'data', allow_duplicate=True),
+    Output('global-status-text', 'children', allow_duplicate=True),
+    Output('global-status-badge', 'className', allow_duplicate=True),
     Input('eval-poller', 'n_intervals'),
     State('eval-running', 'data'),
     prevent_initial_call=True
@@ -173,16 +303,15 @@ def train(n_clicks, data, steps, lr, batch_size):
 def check_eval(n, running):
     global eval_process
 
-    if not running:
-        return '', True
+    if not running or eval_process is None:
+        return '', True, False, "Idle", "status-badge"
 
     if eval_process.poll() is None:
-        return 'Evaluating...', False
+        return 'Evaluating...', False, True, "Evaluating Agent...", "status-badge running"
 
     if eval_process.returncode != 0:
-        return f'Evaluation failed (exit code {eval_process.returncode})', True
-    return 'Finished!', True
-
+        return f'Evaluation failed (exit code {eval_process.returncode})', True, False, "Evaluation Failed", "status-badge failed"
+    return 'Finished!', True, False, "Finished!", "status-badge finished"
 
 
 @app.callback(
@@ -197,6 +326,8 @@ def check_eval(n, running):
     Output('network-slider', 'marks'),
     Output('play-container', 'style', allow_duplicate=True),
     Output('pause-container', 'style', allow_duplicate=True),
+    Output('global-status-text', 'children', allow_duplicate=True),
+    Output('global-status-badge', 'className', allow_duplicate=True),
     Input('eval', 'n_clicks'),
     State('cage-path', 'data'),
     State('agent-path', 'data'),
@@ -204,23 +335,42 @@ def check_eval(n, running):
     prevent_initial_call=True
 )
 def eval(n_clicks, cage, agent, steps):
-
     if agent == None:
-        return 'Choose an agent first!', False, False, False, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, dash.no_update, dash.no_update, {'display': 'none'}, {'display': 'none'}
+        return (
+            'Choose an agent first!', False, False, False, 
+            {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, 
+            dash.no_update, dash.no_update, {'display': 'none'}, {'display': 'none'}, 
+            "Idle", "status-badge"
+        )
 
     global eval_process
-    # If it is already evaluating, do nothing
     if eval_process and eval_process.poll() is None:
-        return 'Already evaluating!', False, False, True, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, dash.no_update, dash.no_update, {'display': 'none'}, {'display': 'none'}
+        return (
+            'Already evaluating!', False, False, True, 
+            {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, 
+            dash.no_update, dash.no_update, {'display': 'none'}, {'display': 'none'}, 
+            "Evaluating Agent...", "status-badge running"
+        )
 
-    # Clear cache before starting new evaluation
     clear_cache()
 
     eval_process = evaluate_agent(cage, agent, steps)
 
     step_marks = {i: str(i) for i in range(0, steps + 1, max(1, steps // 10))}
 
-    return '', True, False, True, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, steps, step_marks, {'display': 'inline-block'}, {'display': 'inline-block'}
+    return (
+        '', True, False, True, 
+        {'display': 'block', 'height': '60vh'}, 
+        {'display': 'block', 'height': '30vh'}, 
+        {'display': 'block'}, 
+        steps, 
+        step_marks, 
+        {'display': 'inline-block'}, 
+        {'display': 'inline-block'}, 
+        "Evaluating Agent...", 
+        "status-badge running"
+    )
+
 
 @app.callback(
     Output('eval-warning', 'children', allow_duplicate=True),
