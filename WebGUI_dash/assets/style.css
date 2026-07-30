@@ -398,7 +398,7 @@ input[type="number"]:focus {
 
 .actions-log {
     background-color: #090E1A;
-    border: 1px solid #1E293B;
+    border: 1px solid #1e293b;
     border-radius: 8px;
     padding: 16px;
     max-height: 200px;
@@ -420,4 +420,12 @@ input[type="number"]:focus {
     font-size: 12px;
     font-weight: 500;
     color: #475569;
+}
+
+.dash-dropdown-value-item {
+    color: #1e293b !important;
+}
+
+.tab--selected {
+    color: #1e293b !important;
 }

@@ -69,7 +69,7 @@ class VisualiseRedExpansionMod():
         self.node_label_mapping = self._get_node_label_mapping(env_netmap)
         self.host_nodes = self._get_host_nodes(env_netmap)
         self.host_interfaces = list(env_netmap.edges()).copy()
-
+ 
         # Create initial network nodelists
         initial_network_info = self._set_initial_agents_and_sessions()
 
