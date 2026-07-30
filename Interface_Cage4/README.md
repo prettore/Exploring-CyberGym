@@ -1,13 +1,13 @@
-# WebGUI Dash
+# Interface para o CAGE 4
 
-This directory contains the dashboard interface for the Exploring-CyberGym project.
+Este diretório contém a interface de dashboard do projeto **Exploring-CyberGym**.
 
-## Running the Dashboard
+## Executando o Dashboard
 
-To run the web interface locally, simply activate the virtual environment and start the application:
+Para executar a interface web localmente, crie e ative um ambiente virtual, instale as dependências e inicie a aplicação:
 
 ```bash
-pythom -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python index.py
