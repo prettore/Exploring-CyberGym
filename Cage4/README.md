@@ -1,30 +1,36 @@
-# CybORG installation
+# Instalação do CybORG
 
-These steps differ from the original guide for they fix numpy dependency, also creating a virtual environment is highly recommended.
+Estas etapas diferem do guia original porque corrigem um problema de dependência com o **NumPy**. Além disso, é **altamente recomendável** criar um ambiente virtual.
 
-Inicialize submodules after cloning the repo
-```
+Inicialize os submódulos após clonar o repositório:
+
+```bash
 git submodule update --init --recursive
 ```
 
-Use pyenv version management tool and install python 3.10
-Feel free to use anaconda, although this is a slower approach.
-Ensure you are at the project root
-```
+Utilize o **pyenv** para gerenciar versões do Python e instale o Python 3.10. Caso prefira, também é possível utilizar o **Anaconda**, embora essa abordagem seja mais lenta. Certifique-se de estar no diretório raiz do projeto.
+
+```bash
 pyenv install 3.10
 pyenv local 3.10
 ```
-Create a virtual environment and install dependencies
-```
+
+Crie um ambiente virtual e instale as dependências:
+
+```bash
 python -m venv .venv &&
-echo 'export PYTHONPATH=$PYTHONPATH:/path/to/repo/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
+echo 'export PYTHONPATH=$PYTHONPATH:/caminho/para/o/repositorio/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
 source .venv/bin/activate &&
 pip install -U pip &&
 cd cage-challenge-4 &&
 pip install -e .
 ```
-Test if everything works correctly
-```
+
+Teste se tudo foi instalado corretamente:
+
+```bash
 pytest
 ```
-The original instructions are found on [https://github.com/cage-challenge/CybORG/blob/2742b5e0ce4330c9b14006b38acd3b5ebe00d6fd/CybORG/Tutorial/0.%20Installation.](https://github.com/cage-challenge/CybORG
+
+As instruções originais podem ser encontradas em:
+https://github.com/cage-challenge/CybORG/blob/2742b5e0ce4330c9b14006b38acd3b5ebe00d6fd/CybORG/Tutorial/0.%20Installation.
