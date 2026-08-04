@@ -8,7 +8,7 @@ Inicialize os submódulos após clonar o repositório:
 git submodule update --init --recursive
 ```
 
-Utilize o **pyenv** para gerenciar versões do Python e instale o Python 3.10. Caso prefira, também é possível utilizar o **Anaconda**, embora essa abordagem seja mais lenta. Certifique-se de estar no diretório raiz do projeto.
+Utilize o **pyenv** https://github.com/pyenv/pyenv para gerenciar versões do Python e instale o Python 3.10. Caso prefira, também é possível utilizar o **Anaconda**, embora essa abordagem seja mais lenta. Certifique-se de estar no diretório raiz do projeto.
 
 ```bash
 pyenv install 3.10
