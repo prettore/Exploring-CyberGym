@@ -38,6 +38,7 @@ https://github.com/cage-challenge/CybORG/blob/2742b5e0ce4330c9b14006b38acd3b5ebe
 # Funcionamento
 
 evaluate_agent.py
+
 Os scripts estão localizados na pasta Testing. Os principais são train_agent.py e evaluate_agent.py.
 Em evaluate_agent.py, o primeiro passo é criar uma função para instanciar uma classe EnterpriseMAE (MAE = Multi Agent Environment).
 No main, são definidos argumentos (agent_path é o caminho do arquivo dos dados de treinamento do agente e steps é o número de passos para realizar na avaliação). 
@@ -45,6 +46,7 @@ Após a instanciação do cenário usando a função criada, o loop da linha 55 
 Utilizando as informações tratadas por VREMod, são criados 3 arquivos pickle (actions, graphs e rewards) que serão utilizados na análise do desempenho do agente.
 
 train_agent.py
+
 Instancia um objeto "algo" da biblioteca RLlib na linha 79, que possui todos os parâmetros de treinamento escolhidos pelo usuário. No loop, o algoritmo é aplicado a cada iteração, os dados de treinamento em tempo real são coletados e recolhidos em um arquivo pickle e, por fim, o checkpoint do agente é salvo para posterior avaliação usando evaluate_agent.py.
 
 # 
