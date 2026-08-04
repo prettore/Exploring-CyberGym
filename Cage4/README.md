@@ -16,6 +16,7 @@ pyenv local 3.10
 ```
 
 Crie um ambiente virtual e instale as dependências:
+(altere o caminho da pasta)
 
 ```bash
 python -m venv .venv &&
