@@ -1,6 +1,8 @@
-## Interface Cage 4
+# Interface Cage 4
 O cenário Cage Challenge 4 é uma simulação de rede multiagente que contém 5 agentes azuis diferentes e 5 agentes vermelhos diferentes. O objetivo do desafio é treinar agentes azuis capazes de impedir ataques na rede feitos pelos vermelhos. Demais detalhes podem ser consultados em https://cage-challenge.github.io/cage-challenge-4/pages/
 A interface tem como objetivo facilitar o treinamento de agentes e a compreensão do que ocorre no cenário.
+
+Essa interface usa o framework Dash. Ela utiliza callbacks para interagir com os arquivos train_agent.py e evaluate_agent.py em Cage4/Testing, recolher os respectivos outputs e exibi-los na interface.
 
 ## Executando o Dashboard
 
@@ -12,4 +14,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python index.py
 ```
-Será baixado e exibido um arquivo png da topologia
+
+## Modo de Uso
+
+Insira os parâmetros
