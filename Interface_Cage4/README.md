@@ -12,3 +12,4 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python index.py
 ```
+Será baixado um arquivo png da topologia
