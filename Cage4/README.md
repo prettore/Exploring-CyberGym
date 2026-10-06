@@ -1,7 +1,5 @@
 # Instalação do CybORG
 
-Estas etapas diferem do guia original porque corrigem um problema de dependência com o **NumPy**. Além disso, é **altamente recomendável** criar um ambiente virtual.
-
 Inicialize os submódulos após clonar o repositório:
 
 ```bash
