@@ -8,23 +8,21 @@ Inicialize os submódulos após clonar o repositório:
 git submodule update --init --recursive
 ```
 
-Utilize o **pyenv** https://github.com/pyenv/pyenv para gerenciar versões do Python e instale o Python 3.10. Caso prefira, também é possível utilizar o **Anaconda**, embora essa abordagem seja mais lenta. Certifique-se de estar no diretório raiz do projeto.
+Utilize o **uv** https://github.com/pyenv/pyenv para gerenciar versões e pacotes do Python, instale o Python 3.10, crie e ative o ambiente virtual. (altere o caminho da pasta)
 
 ```bash
-pyenv install 3.10
-pyenv local 3.10
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv python pin 3.10
+uv venv
+echo 'export PYTHONPATH=$PYTHONPATH:/caminho/para/o/repositorio/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
+source .venv/bin/activate
 ```
 
-Crie um ambiente virtual e instale as dependências:
-(altere o caminho da pasta)
+Instale as dependências:
 
 ```bash
-python -m venv .venv &&
-echo 'export PYTHONPATH=$PYTHONPATH:/caminho/para/o/repositorio/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
-source .venv/bin/activate &&
-pip install -U pip &&
 cd cage-challenge-4 &&
-pip install -e .
+uv pip install -e .
 ```
 
 Teste se tudo foi instalado corretamente:
