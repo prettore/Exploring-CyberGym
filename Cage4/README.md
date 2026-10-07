@@ -1,26 +1,30 @@
 # Instalação do CybORG
 
+Estas etapas diferem do guia original porque corrigem um problema de dependência com o **NumPy**. Além disso, é **altamente recomendável** criar um ambiente virtual.
+
 Inicialize os submódulos após clonar o repositório:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-Utilize o **uv** https://github.com/pyenv/pyenv para gerenciar versões e pacotes do Python, instale o Python 3.10, crie e ative o ambiente virtual. (altere o caminho da pasta)
+Utilize o **pyenv** https://github.com/pyenv/pyenv para gerenciar versões do Python e instale o Python 3.10. Caso prefira, também é possível utilizar o **Anaconda**, embora essa abordagem seja mais lenta. Certifique-se de estar no diretório raiz do projeto.
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-uv python pin 3.10
-uv venv
-echo 'export PYTHONPATH=$PYTHONPATH:/caminho/para/o/repositorio/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
-source .venv/bin/activate
+pyenv install 3.10
+pyenv local 3.10
 ```
 
-Instale as dependências:
+Crie um ambiente virtual e instale as dependências:
+(altere o caminho da pasta)
 
 ```bash
+python -m venv .venv &&
+echo 'export PYTHONPATH=$PYTHONPATH:/caminho/para/o/repositorio/Exploring-CyberGym/Cage4/cage-challenge-4' >> .venv/bin/activate
+source .venv/bin/activate &&
+pip install -U pip &&
 cd cage-challenge-4 &&
-uv pip install -e .
+pip install -e .
 ```
 
 Teste se tudo foi instalado corretamente:
