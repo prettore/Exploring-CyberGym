@@ -74,7 +74,7 @@ def main():
 	actions = visualise.all_actions
 
 	script_dir = os.path.dirname(os.path.abspath(__file__))
-	webgui_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'WebGUI_dash'))
+	webgui_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'Interface_Cage4'))
 	os.makedirs(webgui_dir, exist_ok=True)
 
 	with open(os.path.join(webgui_dir, 'actions.pkl'), 'wb') as f:

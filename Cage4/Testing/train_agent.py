@@ -33,7 +33,7 @@ def main():
 			blue_agent_class=SleepAgent,
 			green_agent_class=EnterpriseGreenAgent,
 			red_agent_class=FiniteStateRedAgent,
-			steps=50
+			steps=100
 			)
 		cyborg = CybORG(scenario_generator=sg)
 		env = EnterpriseMAE(env=cyborg, agent_name="blue_agent")
@@ -54,7 +54,7 @@ def main():
 		.training(
 			lr=lr_param,           # learning rate
 			# gamma=0.995,         # discount factor
-			train_batch_size=batch_size_param
+			# train_batch_size=batch_size_param
 			)
 		.debugging(logger_config={"logdir": "logs/PPO_Example", "type": "ray.tune.logger.TBXLogger"})
 		.multi_agent(
@@ -78,7 +78,7 @@ def main():
 
 	algo = algo_config.build()
 
-	webgui_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'WebGUI_dash'))
+	webgui_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'Interface_Cage4'))
 	live_train_path = os.path.join(webgui_dir, 'live_train.json')
 	live_data = []
 	# Start fresh each run
